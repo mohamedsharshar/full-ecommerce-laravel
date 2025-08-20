@@ -1,0 +1,107 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Product;
+use Illuminate\Http\Request;
+
+class ProductsController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index($catid = null)
+    {
+        if ($catid) {
+            $products = Product::where('category_id', $catid)->get();
+        } else {
+            $products = Product::all();
+        }
+        return view('product', compact('products'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        $categories = \App\Models\Category::all();
+        return view('products.addproducts', compact('categories'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name'        => 'required|string|max:255',
+            'price'       => 'required|numeric|min:0',
+            'quantity'    => 'required|integer|min:1',
+            'category_id' => 'required|exists:categories,id',
+            'desc'        => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'image'       => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+        if ($request->hasFile('image')) {
+            $image      = $request->file('image');
+            $filename   = uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads/products'), $filename);
+            $validated['image'] = 'products/' . $filename;
+        }
+        Product::create($validated);
+        return redirect()->route('products.create')->with('success', 'Product added successfully.');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Product $product)
+    {
+        return view('products.show', compact('product'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Product $product)
+    {
+        $categories = \App\Models\Category::all();
+        return view('products.edit', compact('product', 'categories'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Product $product)
+    {
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'quantity' => 'nullable|integer',
+            'category_id' => 'nullable|exists:categories,id',
+            'description' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        if ($request->hasFile('image')) {
+            $image      = $request->file('image');
+            $filename   = uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads/products'), $filename);
+            $data['image'] = 'products/' . $filename;
+        }
+        $product->update($data);
+
+        return redirect()->route('products.index')->with('success', 'Product updated successfully.');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Product $product)
+    {
+        $products = Product::findOrFail($product->id);
+        $products->delete();
+        return redirect()->route('products.index')->with('success', 'Product deleted successfully.');
+    }
+}
