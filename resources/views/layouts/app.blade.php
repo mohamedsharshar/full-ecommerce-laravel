@@ -67,10 +67,7 @@
                         <nav class="main-menu" dir="rtl">
                             <ul>
                                 <li class="current-list-item"><a href="/">الرئيسية</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="index.html">الصفحة الرئيسية الثابتة</a></li>
-                                        <li><a href="index_2.html">الصفحة الرئيسية المتحركة</a></li>
-                                    </ul>
+
                                 </li>
                                 <li><a href="/products">المنتجات</a></li>
                                 <li><a href="/categories">الفئات</a></li>
@@ -88,12 +85,7 @@
                                         <li><a href="shop.html">متجر</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="news.html">أخبار</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="news.html">أخبار</a></li>
-                                        <li><a href="single-news.html">أخبار مفردة</a></li>
-                                    </ul>
-                                </li>
+                             
                                 <li><a href="contact.html">اتصل بنا</a></li>
                                 <li><a href="shop.html">متجر</a>
                                     <ul class="sub-menu">

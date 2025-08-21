@@ -21,12 +21,9 @@ class DatabaseSeeder extends Seeder
         ]);
         $this->call([
             CategorySeeder::class,
-        ]);
-        $this->call([
             ProductSeeder::class,
+            ReviewSeeder::class,
+            RolePermissionSeeder::class,
         ]);
-         $this->call([
-        ReviewSeeder::class,
-    ]);
     }
 }
