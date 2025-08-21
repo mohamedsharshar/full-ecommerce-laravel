@@ -12,7 +12,8 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('categories')->insert([
+        // Main Categories
+        $categories = [
             [
                 'name' => 'إلكترونيات',
                 'image' => 'assets/img/modern-stationary-collection-arrangement.jpg',
@@ -48,6 +49,59 @@ class CategorySeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-        ]);
+        ];
+
+        DB::table('categories')->insert($categories);
+
+        // Get parent category IDs
+        $electronicsId = DB::table('categories')->where('name', 'إلكترونيات')->first()->id;
+        $clothesId = DB::table('categories')->where('name', 'ملابس')->first()->id;
+        $shoesId = DB::table('categories')->where('name', 'أحذية')->first()->id;
+
+        // Subcategories
+        $subcategories = [
+            [
+                'name' => 'هواتف',
+                'parent_id' => $electronicsId,
+                'image' => 'assets/img/sub-categories/phones.jpg',
+                'description' => 'أحدث الهواتف الذكية.',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'كمبيوترات',
+                'parent_id' => $electronicsId,
+                'image' => 'assets/img/sub-categories/computers.jpg',
+                'description' => 'أجهزة الكمبيوتر المحمولة والمكتبية.',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'رجالي',
+                'parent_id' => $clothesId,
+                'image' => 'assets/img/sub-categories/mens-clothing.jpg',
+                'description' => 'ملابس رجالية عصرية.',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'حريمي',
+                'parent_id' => $clothesId,
+                'image' => 'assets/img/sub-categories/womens-clothing.jpg',
+                'description' => 'ملابس نسائية أنيقة.',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'رياضية',
+                'parent_id' => $shoesId,
+                'image' => 'assets/img/sub-categories/sport-shoes.jpg',
+                'description' => 'أحذية رياضية مريحة.',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ];
+
+        DB::table('categories')->insert($subcategories);
     }
 }

@@ -7,17 +7,15 @@
             <div class="col-lg-8">
                 <div class="card shadow-lg border-0 rounded-4">
                     <div class="card-header bg-warning text-white text-center py-4 rounded-top-4">
-                        <h3 class="mb-0 fw-bold">Add New Review</h3>
+                        <h3 class="mb-0 fw-bold">إضافة تقييم جديد</h3>
                     </div>
                     <div class="card-body p-5">
-                        {{-- Success Message Alert --}}
                         @if (session('success'))
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 {{ session('success') }}
                             </div>
                         @endif
 
-                        {{-- Error Messages --}}
                         @if ($errors->any())
                             <div class="alert alert-danger mb-4 rounded-3">
                                 <ul class="mb-0 ps-3">
@@ -31,36 +29,35 @@
                         <form method="POST" action="{{ route('reviews.store') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="row g-3">
-                                <!-- user_name -->
-                                <div class="col-12 ">
-                                    <label for="user_name" class="form-label fw-semibold">Review Name</label>
+                                <div class="col-12">
+                                    <label for="user_name" class="form-label fw-semibold">اسم المراجع</label>
                                     <input type="text" class="form-control form-control-lg rounded-3" name="user_name"
-                                        id="user_name" placeholder="Enter Review Name" value="{{ old('user_name') }}">
+                                        id="user_name" placeholder="ادخل اسمك" value="{{ old('user_name') }}">
                                 </div>
-                                <!-- rating -->
-                                <div class="col-12 ">
-                                    <label for="name" class="form-label fw-semibold">Rate Us</label>
+
+                                <div class="col-12">
+                                    <label for="rating" class="form-label fw-semibold">التقييم (1 - 5)</label>
                                     <input type="number" class="form-control form-control-lg rounded-3" min="1" max="5" name="rating"
-                                        id="rating" placeholder="Enter Rating" value="{{ old('rating') }}">
+                                        id="rating" placeholder="ادخل تقييمك" value="{{ old('rating') }}">
                                 </div>
-                                <!-- Review Image -->
+
                                 <div class="col-md-6 w-100">
-                                    <label for="image" class="form-label fw-semibold">Review Image</label>
+                                    <label for="image" class="form-label fw-semibold">صورة المراجع</label>
                                     <input type="file" class="form-control form-control-lg rounded-3" name="image"
                                         id="image" accept="image/*">
-                                    <small class="form-text text-muted">Max file size: 2MB. Allowed types: JPG, PNG.</small>
+                                    <small class="form-text text-muted">أقصى حجم ملف: 2 ميغابايت. الصيغ المسموح بها: JPG, PNG.</small>
                                 </div>
-                                <!-- comment -->
+
                                 <div class="col-12">
-                                    <label for="comment" class="form-label fw-semibold">Comment</label>
+                                    <label for="comment" class="form-label fw-semibold">التعليق</label>
                                     <textarea name="comment" id="comment" class="form-control rounded-3" rows="6"
-                                        placeholder="Enter your comment">{{ old('comment') }}</textarea>
+                                        placeholder="اكتب تعليقك">{{ old('comment') }}</textarea>
                                 </div>
                             </div>
-                            <!-- Submit Button -->
+
                             <div class="d-grid mt-4">
                                 <button type="submit" class="btn btn-warning btn-lg rounded-pill fw-bold py-3">
-                                    Save Review
+                                    حفظ التقييم
                                 </button>
                             </div>
                         </form>
