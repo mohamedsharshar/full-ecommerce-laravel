@@ -10,9 +10,11 @@ class CtegoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::with('children')->whereNull('parent_id')->get();
+    $allCategories = Category::all();
+    $mainCategories = $allCategories->whereNull('parent_id');
+    $subCategories = $allCategories->whereNotNull('parent_id');
     $products = Product::with('category')->get();
-        return view('category', compact('categories', 'products'));
+    return view('category', compact('mainCategories', 'subCategories', 'allCategories', 'products'));
     }
 
 

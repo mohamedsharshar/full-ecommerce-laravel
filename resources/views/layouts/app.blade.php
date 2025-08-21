@@ -151,10 +151,10 @@
                     <div class="col-md-12 col-lg-7 offset-lg-1 offset-xl-0">
                         <div class="hero-text">
                             <div class="hero-text-tablecell">
-                                <p class="subtitle">متعة التسوق عبر فروعنا</p>
-                                <h1>احدث صيحات الموضة</h1>
+                                <p class="subtitle">تسوّق الآن واحصل على خصم 50%</p>
+                                <h1>خصم خاص على الأدوات المدرسية</h1>
                                 <div class="hero-btns">
-                                    <a href="shop.html" class="boxed-btn">سجل معنا</a>
+                                    <a href="shop.html" class="boxed-btn">تسوق الان</a>
                                     <a href="contact.html" class="bordered-btn">تواصل معنا</a>
                                 </div>
                             </div>
@@ -170,10 +170,10 @@
                     <div class="col-lg-10 offset-lg-1 text-center">
                         <div class="hero-text">
                             <div class="hero-text-tablecell">
-                                <p class="subtitle">توصيل باقل الاسعار حتي باب المنزل</p>
-                                <h1>خصومات لا نهائية علي جميع المنتجات</h1>
+                                <p class="subtitle">أناقة لكل يوم</p>
+                                <h1>أكبر تشكيلة من أوتلت الأزياء</h1>
                                 <div class="hero-btns">
-                                    <a href="shop.html" class="boxed-btn">سجل معنا</a>
+                                    <a href="shop.html" class="boxed-btn">تسوق الآن</a>
                                     <a href="contact.html" class="bordered-btn">تواصل معنا</a>
                                 </div>
                             </div>
@@ -189,10 +189,67 @@
                     <div class="col-lg-10 offset-lg-1 text-right">
                         <div class="hero-text">
                             <div class="hero-text-tablecell">
-                                <p class="subtitle">تخفيضات ضخمة الآن!</p>
-                                <h1>احصل على خصم مميز</h1>
+                                <p class="subtitle">توصيل مجاني لأول طلب</p>
+                                <h1>براندات مصرية نفتخر بها</h1>
                                 <div class="hero-btns">
-                                    <a href="shop.html" class="boxed-btn">سجل معنا</a>
+                                    <a href="shop.html" class="boxed-btn">تسوق الآن</a>
+                                    <a href="contact.html" class="bordered-btn">تواصل معنا</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- single home slider -->
+        <div class="single-homepage-slider homepage-bg-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10 offset-lg-1 text-left">
+                        <div class="hero-text">
+                            <div class="hero-text-tablecell">
+                                <p class="subtitle">جهّز نفسك لأقوى العروض</p>
+                                <h1>عروض رجوع المدارس</h1>
+                                <div class="hero-btns">
+                                    <a href="shop.html" class="boxed-btn">تسوق الآن</a>
+                                    <a href="contact.html" class="bordered-btn">تواصل معنا</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- single home slider -->
+        <div class="single-homepage-slider homepage-bg-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10 offset-lg-1 text-center">
+                        <div class="hero-text">
+                            <div class="hero-text-tablecell">
+                                <p class="subtitle">خصم حتى 35% + 10% إضافي مع الكوبون</p>
+                                <h1>أسبوع الجمال</h1>
+                                <div class="hero-btns">
+                                    <a href="shop.html" class="boxed-btn">تسوق الآن</a>
+                                    <a href="contact.html" class="bordered-btn">تواصل معنا</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- single home slider -->
+        <div class="single-homepage-slider homepage-bg-6">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10 offset-lg-1 text-right">
+                        <div class="hero-text">
+                            <div class="hero-text-tablecell">
+                                <p class="subtitle">أسعار تبدأ من 199 جنيه</p>
+                                <h1>برّد في عز الصيف</h1>
+                                <div class="hero-btns">
+                                    <a href="shop.html" class="boxed-btn">تسوق الآن</a>
                                     <a href="contact.html" class="bordered-btn">تواصل معنا</a>
                                 </div>
                             </div>

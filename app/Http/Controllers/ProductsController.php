@@ -38,7 +38,9 @@ class ProductsController extends Controller
     {
     $mainCategories = \App\Models\Category::whereNull('parent_id')->get();
     $subCategories = \App\Models\Category::whereNotNull('parent_id')->get();
-    return view('products.addproducts', compact('mainCategories', 'subCategories'));
+    $products = Product::all();
+    $categories = \App\Models\Category::all();
+    return view('products.addproducts', compact('mainCategories', 'subCategories', 'products', 'categories'));
     }
 
     /**
@@ -47,13 +49,14 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name'        => 'required|string|max:255',
-            'price'       => 'required|numeric|min:0',
-            'quantity'    => 'required|integer|min:1',
-            'category_id' => 'required|exists:categories,id',
-            'desc'        => 'nullable|string|max:255',
-            'description' => 'nullable|string',
-            'image'       => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'name'           => 'required|string|max:255',
+            'price'          => 'required|numeric|min:0',
+            'quantity'       => 'required|integer|min:1',
+            'category_id'    => 'required|exists:categories,id',
+            'subcategory_id' => 'nullable|exists:categories,id',
+            'desc'           => 'nullable|string|max:255',
+            'description'    => 'nullable|string',
+            'image'          => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
         if ($request->hasFile('image')) {
             $image      = $request->file('image');
@@ -78,8 +81,11 @@ class ProductsController extends Controller
      */
     public function edit(Product $product)
     {
-        $categories = \App\Models\Category::all();
-        return view('products.edit', compact('product', 'categories'));
+        $categories = \App\Models\Category::whereNull('parent_id')->with('children')->get();
+    $categories = \App\Models\Category::all();
+    $mainCategories = $categories->whereNull('parent_id');
+    $subCategories = $categories->whereNotNull('parent_id');
+    return view('products.edit', compact('product', 'categories', 'mainCategories', 'subCategories'));
     }
 
     /**
@@ -88,12 +94,13 @@ class ProductsController extends Controller
     public function update(Request $request, Product $product)
     {
         $data = $request->validate([
-            'name' => 'required|string|max:255',
-            'price' => 'required|numeric',
-            'quantity' => 'nullable|integer',
-            'category_id' => 'nullable|exists:categories,id',
-            'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'name'           => 'required|string|max:255',
+            'price'          => 'required|numeric|min:0',
+            'quantity'       => 'nullable|integer|min:1',
+            'category_id'    => 'nullable|exists:categories,id',
+            'subcategory_id' => 'nullable|exists:categories,id',
+            'description'    => 'nullable|string',
+            'image'          => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         if ($request->hasFile('image')) {

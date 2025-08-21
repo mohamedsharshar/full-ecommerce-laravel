@@ -100,6 +100,14 @@ class CategorySeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'name' => 'غسالات',
+                'parent_id' => $electronicsId,
+                'image' => 'assets/img/sub-categories/washing-machines.jpg',
+                'description' => 'أحدث غسالات الملابس.',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ];
 
         DB::table('categories')->insert($subcategories);

@@ -95,6 +95,21 @@
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <div class="card">
+                        @if (session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if ($errors->any())
+                    <div class="alert alert-danger mb-4 rounded-3">
+                                                        <ul class="mb-0 pe-3">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                         <div class="card-header">تعديل المنتج</div>
                         <div class="card-body">
                             <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
@@ -114,13 +129,25 @@
                                 </div>
                                 <div class="form-group mb-3">
                                     <label for="category_id">القسم</label>
-                                    <select name="category_id" class="form-control" >
-                                        @foreach($categories as $category)
-                                            <option value="{{ $category->id }}" {{ $product->category_id == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
+                                        <select name="category_id" class="form-control">
+                                            @foreach($categories as $category)
+                                                @if(is_null($category->parent_id))
+                                                    <option value="{{ $category->id }}" {{ $product->category_id == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="subcategory_id">القسم الفرعي</label>
+                                        <select name="subcategory_id" class="form-control">
+                                            <option value="">اختر القسم الفرعي</option>
+                                            @foreach($categories as $category)
+                                                @if(!is_null($category->parent_id))
+                                                    <option value="{{ $category->id }}" {{ (isset($product->subcategory_id) && $product->subcategory_id == $category->id) ? 'selected' : '' }}>{{ $category->name }}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 <div class="form-group mb-3">
                                     <label for="description">الوصف</label>
                                     <textarea name="description" class="form-control">{{ old('description', $product->description) }}</textarea>

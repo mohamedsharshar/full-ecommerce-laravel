@@ -59,14 +59,14 @@
 
                         <div class="col-md-6"
                             style="display:flex;align-items:center;gap:8px;justify-content:space-between;flex-wrap:wrap;">
-                            <label for="parent_id" class="form-label fw-semibold text-end"
+                            <label for="subcategory_id" class="form-label fw-semibold text-end"
                                 style="flex:0 0 34%;text-align:right;margin-bottom:0;">التصنيف الفرعي</label>
-                            <select name="parent_id" id="parent_id" class="form-select form-select-lg rounded-3"
+                            <select name="subcategory_id" id="subcategory_id" class="form-select form-select-lg rounded-3"
                                 style="flex:1 1 64%;min-width:160px;padding:.625rem .75rem;">
                                 <option value="" disabled selected>اختر التصنيف الفرعي (إن وجد)</option>
                                 @foreach ($subCategories as $subcategory)
                                     <option value="{{ $subcategory->id }}"
-                                        {{ old('parent_id') == $subcategory->id ? 'selected' : '' }}>
+                                        {{ old('subcategory_id') == $subcategory->id ? 'selected' : '' }}>
                                         {{ $subcategory->name }}</option>
                                 @endforeach
                             </select>

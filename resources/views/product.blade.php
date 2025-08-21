@@ -102,7 +102,7 @@
                             </a>
                         </div>
                         <h3>{{ $product->name }}</h3>
-                        <div class="desc">{{ $product->description }}</div>
+                        <div class="desc">{{ Str::limit($product->description, 100, '...') }}</div>
                         <div class="price">${{ $product->price }}</div>
                         <div class="qty">الكمية: {{ $product->quantity }}</div>
                         <a href="/cart" class="cart-btn"><i class="fas fa-shopping-cart"></i> أضف للسلة</a>
@@ -114,7 +114,7 @@
                                 <button type="submit" class="btn btn-danger mt-4"><i class="fas fa-trash"></i> حذف
                                     منتج</button>
                             </form>
-                           <form action="{{ route('products.edit', $product->id) }}" method="GET"
+                            <form action="{{ route('products.edit', $product->id) }}" method="GET"
                                 style="display:inline;">
                                 @csrf
                                 <button type="submit" class="btn btn-warning mt-4"><i class="fas fa-edit"></i> تعديل

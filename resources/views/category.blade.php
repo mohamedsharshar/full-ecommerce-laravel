@@ -41,8 +41,11 @@
                 <div class="col-md-12">
                     <div class="product-filters">
                         <ul>
-                            @foreach ($categories as $category)
-                                <li data-filter=".cat-{{ $category->id }}">{{ $category->name }}</li>
+                            @foreach ($mainCategories as $mainCategory)
+                                <li data-filter=".cat-{{ $mainCategory->id }}">{{ $mainCategory->name }}</li>
+                                @foreach ($subCategories->where('parent_id', $mainCategory->id) as $subCategory)
+                                    <li data-filter=".cat-{{ $subCategory->id }}">&nbsp;&nbsp;{{ $subCategory->name }}</li>
+                                @endforeach
                             @endforeach
                             <li class="active" data-filter="*">الكل</li>
                         </ul>
@@ -52,11 +55,11 @@
 
             <div class="row product-lists">
                 @foreach ($products as $product)
-                    <div class="col-lg-4 col-md-6 text-center cat-{{ $product->category_id ?? 'uncategorized' }}">
+                    <div class="col-lg-4 col-md-6 text-center cat-{{ $product->category_id ?? 'uncategorized' }} @if($product->subcategory_id) cat-{{ $product->subcategory_id }} @endif">
                         <div class="single-product-item">
                             <div class="product-image">
                                 <a href="/categories/{{ $product->category_id }}/products">
-                                    <img src="{{ url($product->image) }}" style="max-height: 200px; min-height: 200px;"
+                                    <img src="{{ asset('uploads/' . $product->image) }}" style="max-height: 200px; min-height: 200px;"
                                         alt="">
                                 </a>
                             </div>

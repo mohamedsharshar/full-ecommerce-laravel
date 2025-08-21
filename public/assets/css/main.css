@@ -1468,15 +1468,25 @@ input[type="submit"] {
 }
 
 .homepage-bg-1 {
-  background-image: url(../img/hero-bg.jpg);
+  background-image: url(../img/hero1.jpg);
 }
 
 .homepage-bg-2 {
-  background-image: url(../img/hero-bg-2.jpg);
+  background-image: url(../img/hero2.jpg);
 }
 
 .homepage-bg-3 {
-  background-image: url(../img/hero-bg-3.jpg);
+  background-image: url(../img/hero3.jpg);
+}
+
+.homepage-bg-4 {
+  background-image: url(../img/hero4.jpg);
+}
+.homepage-bg-5{
+    background-image: url(../img/hero5.jpg);
+}
+.homepage-bg-6{
+    background-image: url(../img/hero6.jpg);
 }
 
 .homepage-slider {
