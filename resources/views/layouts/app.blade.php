@@ -5,11 +5,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    @livewireStyles
     <meta name="description"
         content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
 
     <!-- title -->
-    <title>Fruitkha - Slider Version</title>
+    <title>Fruitkha</title>
 
     <!-- favicon -->
     <link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
@@ -74,6 +75,7 @@
                                 <li><a href="/products">المنتجات</a></li>
                                 <li><a href="/categories">الفئات</a></li>
                                 <li><a href="/products/create">اضافة منتج</a></li>
+                                <li><a href="/reviews">اراء العملاء</a></li>
                                 <li><a href="#">الصفحات</a>
                                     <ul class="sub-menu">
                                         <li><a href="404.html">404 الصفحة</a></li>
@@ -127,12 +129,12 @@
             <div class="row">
                 <div class="col-lg-12">
                     <span class="close-btn"><i class="fas fa-window-close"></i></span>
+
                     <div class="search-bar">
                         <div class="search-bar-tablecell">
-                            <h3> البحث عن: </h3>
-                            <input type="text" placeholder="الكلمات الرئيسية">
-                            <button type="submit">بحث <i class="fas fa-search"></i></button>
+                            @livewire('product-search')
                         </div>
+                        @livewireScripts
                     </div>
                 </div>
             </div>
@@ -200,11 +202,11 @@
             </div>
         </div>
     </div>
-    <!-- end home page slider
+    <!-- end home page slider -->
 
-@yield('content')
+    @yield('content')
 
-<!-- footer -->
+    <!-- footer -->
     <div class="footer-area">
         <div class="container">
             <div class="row">

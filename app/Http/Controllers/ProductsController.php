@@ -10,13 +10,24 @@ class ProductsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index($catid = null)
+    public function index(Request $request, $catid = null)
     {
+        $query = Product::query();
+
         if ($catid) {
-            $products = Product::where('category_id', $catid)->get();
-        } else {
-            $products = Product::all();
+            $query->where('category_id', $catid);
         }
+
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%");
+            });
+        }
+
+        $products = $query->get();
+
         return view('product', compact('products'));
     }
 
@@ -25,8 +36,9 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        $categories = \App\Models\Category::all();
-        return view('products.addproducts', compact('categories'));
+    $mainCategories = \App\Models\Category::whereNull('parent_id')->get();
+    $subCategories = \App\Models\Category::whereNotNull('parent_id')->get();
+    return view('products.addproducts', compact('mainCategories', 'subCategories'));
     }
 
     /**

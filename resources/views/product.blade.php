@@ -93,7 +93,7 @@
                 }
             </style>
             <div class="modern-products-flex">
-                @foreach ($products as $product)
+                @forelse ($products as $product)
                     <div class="modern-product-card">
                         <div class="product-image">
                             <a href="/products">
@@ -123,7 +123,11 @@
                         </div>
 
                     </div>
-                @endforeach
+                @empty
+                    <div class="col-lg-12 text-center">
+                        <p>No products found matching your search.</p>
+                    </div>
+                @endforelse
             </div>
         </div>
     </div>

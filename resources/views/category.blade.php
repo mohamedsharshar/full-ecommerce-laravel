@@ -52,11 +52,13 @@
 
             <div class="row product-lists">
                 @foreach ($products as $product)
-                    <div class="col-lg-4 col-md-6 text-center  cat-{{ $product->category_id ?? 'uncategorized' }}">
+                    <div class="col-lg-4 col-md-6 text-center cat-{{ $product->category_id ?? 'uncategorized' }}">
                         <div class="single-product-item">
                             <div class="product-image">
-                                <a href="/products/{{ $product->id }}"><img src="{{ url($product->image) }}"
-                                        style="max-height: 200px; min-height: 200px;" alt=""></a>
+                                <a href="/categories/{{ $product->category_id }}/products">
+                                    <img src="{{ url($product->image) }}" style="max-height: 200px; min-height: 200px;"
+                                        alt="">
+                                </a>
                             </div>
                             <h3>{{ $product->name }}</h3>
                             <p class="product-desc">
@@ -69,6 +71,7 @@
                     </div>
                 @endforeach
             </div>
+
 
         </div>
 

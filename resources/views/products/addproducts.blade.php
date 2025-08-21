@@ -51,12 +51,21 @@
                                     <label for="category_id" class="form-label fw-semibold">Category</label>
                                     <select name="category_id" id="category_id" class="form-select form-select-lg rounded-3" >
                                         <option value="" disabled selected>Select Category</option>
-                                        @foreach ($categories as $category)
+                                        @foreach ($mainCategories as $category)
                                             <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
-
+                                {{-- Sub Category --}}
+                                <div class="col-12">
+                                    <label for="parent_id" class="form-label fw-semibold">Sub Category</label>
+                                    <select name="parent_id" id="parent_id" class="form-select form-select-lg rounded-3" >
+                                        <option value="" disabled selected>Select Sub Category</option>
+                                        @foreach ($subCategories as $subcategory)
+                                            <option value="{{ $subcategory->id }}" {{ old('parent_id') == $subcategory->id ? 'selected' : '' }}>{{ $subcategory->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                 <!-- Product Quantity -->
                                 <div class="col-md-6">
                                     <label for="quantity" class="form-label fw-semibold">Quantity</label>
@@ -67,7 +76,7 @@
                                 <!-- Product Image -->
                                 <div class="col-md-6">
                                     <label for="image" class="form-label fw-semibold">Product Image</label>
-                                   
+
                                     <input type="file" class="form-control form-control-lg rounded-3" name="image" id="image"
                                         accept="image/*">
                                     <small class="form-text text-muted">Max file size: 2MB. Allowed types: JPG, PNG.</small>
