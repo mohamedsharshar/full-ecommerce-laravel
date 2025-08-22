@@ -1,6 +1,7 @@
 
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ReviewController;
@@ -33,3 +34,5 @@ Route::get('/categories/{catid}/products', [ProductsController::class, 'index'])
 Auth::routes(['register' => false]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/cart',[CartController::class,'index'])->name('cart.index');
