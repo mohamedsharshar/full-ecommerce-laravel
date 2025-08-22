@@ -26,7 +26,7 @@ Route::resource('categories', CategoryController::class);
     Route::get('/reviews', [ReviewController::class, 'reviews'])->name('reviews');
     Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
 // });
-Route::get('/categories/{catid}/products', [ProductsController::class, 'index']);
+Route::get('/categories/{catid}/products', [ProductsController::class, 'index'])->name('categories.products');
 
 
 

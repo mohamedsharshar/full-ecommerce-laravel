@@ -17,7 +17,11 @@
                         <img src="https://via.placeholder.com/300x180?text=No+Image" class="card-img-top" alt="no image" style="height:180px;object-fit:cover;">
                     @endif
                     <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">{{ $cat->name }}</h5>
+                        <h5 class="card-title">
+                            <a href="{{ route('categories.products', $cat->id) }}" class="text-decoration-none" style="color: inherit;">
+                                {{ $cat->name }}
+                            </a>
+                        </h5>
                         <p class="card-text text-muted small mb-2">{{ $cat->description }}</p>
                         @if($cat->parent)
                             <span class="badge bg-info mb-2">فرعي من: {{ $cat->parent->name }}</span>
