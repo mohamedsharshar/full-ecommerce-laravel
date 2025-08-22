@@ -56,7 +56,15 @@
                     </div>
                 @endforelse
             </div>
+
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                {{ $products->links() }}
+            </div>
+        </div>
         </div>
     </div>
+
     <!-- end product section -->
+
 @endsection

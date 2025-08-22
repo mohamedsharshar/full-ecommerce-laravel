@@ -27,7 +27,7 @@ class ProductsController extends Controller
             });
         }
 
-        $products = $query->get();
+        $products = $query->paginate(8);
         $mainCategories = \App\Models\Category::whereNull('parent_id')->get();
         $subCategories = \App\Models\Category::whereNotNull('parent_id')->get();
 

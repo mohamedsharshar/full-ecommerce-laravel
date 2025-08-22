@@ -11,7 +11,6 @@ class RolePermissionSeeder extends Seeder
 {
     public function run(): void
     {
-        // إنشاء صلاحيات
         $permissions = [
             'manage products',
             'view products',
@@ -27,17 +26,14 @@ class RolePermissionSeeder extends Seeder
             Permission::firstOrCreate(['name' => $perm]);
         }
 
-        // إنشاء أدوار
         $adminRole = Role::firstOrCreate(['name' => 'admin']);
         $managerRole = Role::firstOrCreate(['name' => 'manager']);
         $userRole = Role::firstOrCreate(['name' => 'user']);
 
-        // ربط الصلاحيات بالأدوار
         $adminRole->givePermissionTo(Permission::all());
         $managerRole->givePermissionTo(['manage products', 'manage categories', 'view dashboard', 'manage reviews','view products']);
         $userRole->givePermissionTo(['view dashboard']);
 
-        // ربط دور admin بأول مستخدم
         $admin = User::first();
         if ($admin) {
             $admin->assignRole('admin');

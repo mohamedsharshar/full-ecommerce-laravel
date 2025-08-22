@@ -10,7 +10,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $allCategories = Category::all();
+        $allCategories = Category::paginate(8);
         $mainCategories = $allCategories->whereNull('parent_id');
         $subCategories = $allCategories->whereNotNull('parent_id');
         $products = Product::with('category')->get();
