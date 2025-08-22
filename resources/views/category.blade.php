@@ -33,6 +33,26 @@
             display: block;
         }
     </style>
+    <!-- categories -->
+    <div class="category-section mt-150 mb-150">
+        <div class="container">
+            <div class="row">
+                @foreach ($mainCategories as $mainCategory)
+                    <div class="col-md-4">
+                        <div class="single-category-item">
+                            <h3>{{ $mainCategory->name }}</h3>
+                            <p><strong>الوصف:</strong> {{ $mainCategory->description }}</p>
+                            @if($mainCategory->image)
+                                <div style="margin-bottom:10px;">
+                                    <img src="{{ asset('uploads/' . $mainCategory->image) }}" alt="{{ $mainCategory->name }}" style="max-width:100%;max-height:150px;">
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
     <!-- products -->
     <div class="product-section mt-150 mb-150">
         <div class="container">

@@ -75,26 +75,41 @@
                                 <li><a href="/reviews">اراء العملاء</a></li>
                                 <li><a href="#">الصفحات</a>
                                     <ul class="sub-menu">
-                                        <li><a href="404.html">404 الصفحة</a></li>
                                         <li><a href="/products">المنتجات</a></li>
                                         <li><a href="/categories">الفئات</a></li>
                                         <li><a href="cart.html">عربة التسوق</a></li>
                                         <li><a href="checkout.html">الدفع</a></li>
                                         <li><a href="contact.html">اتصل بنا</a></li>
-                                        <li><a href="news.html">أخبار</a></li>
-                                        <li><a href="shop.html">متجر</a></li>
                                     </ul>
                                 </li>
-                             
+                                @guest
+                                    @if (Route::has('login'))
+                                        <li><a href="{{ route('login') }}">تسجيل الدخول</a></li>
+                                    @endif
+                                    @if (Route::has('register'))
+                                        <li><a href="{{ route('register') }}">تسجيل</a></li>
+                                    @endif
+                                @else
+                                    <li>
+                                        <a href="#">
+                                            {{ Auth::user()->name }}
+                                        </a>
+                                        <ul class="sub-menu">
+                                            <li><a href="#">الملف الشخصي</a></li>
+                                            <li>
+                                                <a href="{{ route('logout') }}"
+                                                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                    تسجيل الخروج
+                                                </a>
+                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                    @csrf
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                @endguest
                                 <li><a href="contact.html">اتصل بنا</a></li>
-                                <li><a href="shop.html">متجر</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="shop.html">متجر</a></li>
-                                        <li><a href="checkout.html">الدفع</a></li>
-                                        <li><a href="single-product.html">منتج مفرد</a></li>
-                                        <li><a href="cart.html">عربة التسوق</a></li>
-                                    </ul>
-                                </li>
+
                                 <li>
                                     <div class="header-icons">
                                         <a class="shopping-cart" href="cart.html"><i
@@ -331,6 +346,7 @@
     <!-- jquery -->
     <script src="{{ asset('assets/js/jquery-1.11.3.min.js') }}"></script>
     <!-- bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
     <!-- count down -->
     <script src="{{ asset('assets/js/jquery.countdown.js') }}"></script>

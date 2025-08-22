@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductsController extends Controller
 {
@@ -27,8 +28,10 @@ class ProductsController extends Controller
         }
 
         $products = $query->get();
+        $mainCategories = \App\Models\Category::whereNull('parent_id')->get();
+        $subCategories = \App\Models\Category::whereNotNull('parent_id')->get();
 
-        return view('product', compact('products'));
+        return view('product', compact('products', 'mainCategories', 'subCategories'));
     }
 
     /**
@@ -36,6 +39,9 @@ class ProductsController extends Controller
      */
     public function create()
     {
+        if (Auth::check()){
+
+        }
     $mainCategories = \App\Models\Category::whereNull('parent_id')->get();
     $subCategories = \App\Models\Category::whereNotNull('parent_id')->get();
     $products = Product::all();
