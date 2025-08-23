@@ -1,6 +1,27 @@
 @extends('layouts.app')
 
 @section('content')
+    <style>
+        .admin-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        .admin-buttons .btn {
+            padding: 5px 15px;
+            font-size: 14px;
+        }
+        .admin-buttons .btn-warning {
+            background-color: #ffc107;
+            border-color: #ffc107;
+            color: #000;
+        }
+        .admin-buttons .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+            color: #fff;
+        }
+    </style>
     <!-- product section -->
     <div class="product-section mt-150 mb-150">
         <div class="container">
@@ -47,7 +68,27 @@
                             </p>
 
                             <p class="product-price"><span>السعر</span> {{ $product->price }}$ </p>
-                            <a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> أضف للسلة</a>
+                            <form action="{{ route('cart.store') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                <input type="hidden" name="quantity" value="1">
+                                <button type="submit" class="cart-btn"><i class="fas fa-shopping-cart"></i> أضف للسلة</button>
+                            </form>
+
+                            @role('admin')
+                            <div class="admin-buttons mt-3">
+                                <a href="{{ route('products.edit', $product) }}" class="btn btn-warning btn-sm">
+                                    <i class="fas fa-edit"></i> تعديل
+                                </a>
+                                <form action="{{ route('products.destroy', $product) }}" method="POST" class="d-inline-block" onsubmit="return confirm('هل أنت متأكد من حذف هذا المنتج؟');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash"></i> حذف
+                                    </button>
+                                </form>
+                            </div>
+                            @endrole
                         </div>
                     </div>
                 @empty
