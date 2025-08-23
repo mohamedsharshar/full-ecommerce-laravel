@@ -1,3 +1,16 @@
+<style>
+    .boxed-btn{
+        background: #f28123;
+        color: white;
+        border: none;
+        border-radius: 50px;
+        padding: 10px 20px;
+    }
+    .boxed-btn:hover{
+        background: #051922;
+        color: #f28123;
+    }
+</style>
 <div class="billing-address-form">
     @if(session('success'))
         <div class="alert alert-success">
@@ -21,9 +34,8 @@
         </p>
 
         <div class="mb-4">
-            <label for="address" class="block text-gray-700 font-bold mb-2">Address</label>
             <input type="text" name="address" id="address" value="{{ old('address', $shipping->address ?? '') }}"
-                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500" required>
+                class="w-100 px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500" required>
             @error('address')
                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
             @enderror
@@ -54,7 +66,7 @@
             @enderror
         </p>
         <p>
-            <button type="submit" class="boxed-btn">حفظ معلومات الشحن</button>
+            <button type="submit" class="boxed-btn">إتمام الطلب</button>
         </p>
     </form>
 </div>

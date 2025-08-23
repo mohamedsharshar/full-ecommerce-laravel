@@ -53,6 +53,7 @@ class CouponController extends Controller
             : ($total * ($coupon->value / 100));
 
         session()->put('coupon', [
+            'id' => $coupon->id,
             'code' => $coupon->code,
             'discount' => $discount,
         ]);

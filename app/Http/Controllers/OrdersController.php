@@ -29,7 +29,7 @@ class OrdersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -53,7 +53,14 @@ class OrdersController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $orders = Order::findOrFail($id);
+        $orders->update(
+            [
+                'status' => $request->input('status')
+            ]
+        );
+
+        return redirect()->back()->with('success', 'Order status updated successfully!');
     }
 
     /**
@@ -61,6 +68,9 @@ class OrdersController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $orders = Order::findOrFail($id);
+        $orders->delete();
+
+        return redirect()->back()->with('success', 'Order deleted successfully!');
     }
 }
