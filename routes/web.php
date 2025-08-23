@@ -20,6 +20,7 @@ Route::resource('categories', CategoryController::class);
     Route::get('/products', [ProductsController::class, 'index'])->name('products.index')->middleware('auth');
     Route::get('/products/create', [ProductsController::class, 'create'])->name('products.create')->middleware(middleware: ['auth', 'role:admin']);
     Route::post('/products/store', [ProductsController::class, 'store'])->name('products.store')->middleware(middleware: ['auth', 'role:admin']);
+    Route::get('/products/{product}', [ProductsController::class, 'show'])->name('products.show')->middleware(middleware: ['auth', 'role:admin']);
     Route::delete('/products/{product}', [ProductsController::class, 'destroy'])->name('products.destroy')->middleware(middleware: ['auth', 'role:admin']);
     Route::get('/products/{product}/edit', [ProductsController::class, 'edit'])->name('products.edit')->middleware(middleware: ['auth', 'role:admin']);
     Route::put('/products/{product}', [ProductsController::class, 'update'])->name('products.update')->middleware(middleware: ['auth', 'role:admin']);
@@ -59,3 +60,6 @@ Route::post('/shipping', [ShippingController::class, 'store'])->name('shipping.s
 Route::put('/shipping/{shipping}', [ShippingController::class, 'update'])->name('shipping.update')->middleware('auth');
 
 // Route::get('/orders/{order}', [OrdersController::class, 'show'])->name('orders.show');
+Route::get('/about', function () {
+    return view('about');
+});

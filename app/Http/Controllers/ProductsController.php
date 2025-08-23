@@ -21,9 +21,9 @@ class ProductsController extends Controller
 
         if ($request->filled('search')) {
             $search = $request->input('search');
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('description', 'like', "%{$search}%");
+                    ->orWhere('description', 'like', "%{$search}%");
             });
         }
 
@@ -39,14 +39,13 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        if (Auth::check()){
-
+        if (Auth::check()) {
         }
-    $mainCategories = \App\Models\Category::whereNull('parent_id')->get();
-    $subCategories = \App\Models\Category::whereNotNull('parent_id')->get();
-    $products = Product::all();
-    $categories = \App\Models\Category::all();
-    return view('products.addproducts', compact('mainCategories', 'subCategories', 'products', 'categories'));
+        $mainCategories = \App\Models\Category::whereNull('parent_id')->get();
+        $subCategories = \App\Models\Category::whereNotNull('parent_id')->get();
+        $products = Product::all();
+        $categories = \App\Models\Category::all();
+        return view('products.addproducts', compact('mainCategories', 'subCategories', 'products', 'categories'));
     }
 
     /**
@@ -88,10 +87,10 @@ class ProductsController extends Controller
     public function edit(Product $product)
     {
         $categories = \App\Models\Category::whereNull('parent_id')->with('children')->get();
-    $categories = \App\Models\Category::all();
-    $mainCategories = $categories->whereNull('parent_id');
-    $subCategories = $categories->whereNotNull('parent_id');
-    return view('products.edit', compact('product', 'categories', 'mainCategories', 'subCategories'));
+        $categories = \App\Models\Category::all();
+        $mainCategories = $categories->whereNull('parent_id');
+        $subCategories = $categories->whereNotNull('parent_id');
+        return view('products.edit', compact('product', 'categories', 'mainCategories', 'subCategories'));
     }
 
     /**

@@ -22,7 +22,6 @@ class ShippingController extends Controller
             'zip' => 'required|string|max:20',
         ]);
 
-        // Update or create shipping information
         Shipping::updateOrCreate(
             ['user_id' => Auth::id()],
             [

@@ -57,7 +57,7 @@
                     <div class="col-lg-4 col-md-6 text-center cat-{{ $product->category_id ?? 'uncategorized' }} @if($product->subcategory_id) cat-{{ $product->subcategory_id }} @endif">
                         <div class="single-product-item">
                             <div class="product-image">
-                                <a href="/products">
+                                <a href="{{ route('products.show', $product) }}">
                                     <img src="{{ asset('uploads/' . $product->image) }}" style="max-height: 200px; min-height: 200px;"
                                         alt="">
                                 </a>

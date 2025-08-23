@@ -70,17 +70,18 @@
 
                                 </li>
                                 <li><a href="/products">المنتجات</a></li>
-                                <li><a href="/categories">الفئات</a></li>
+                                <li><a href="/categories">الأقسام</a></li>
                                 <li><a href="/products/create">اضافة منتج</a></li>
                                 <li><a href="/reviews">اراء العملاء</a></li>
                                 <li><a href="{{ route('coupons.index') }}">الكوبونات</a></li>
+                                <li><a href="/about">من نحن</a></li>
                                 <li><a href="#">الصفحات</a>
                                     <ul class="sub-menu">
                                         <li><a href="/products">المنتجات</a></li>
                                         <li><a href="/categories">الفئات</a></li>
                                         <li><a href="/cart">عربة التسوق</a></li>
-                                        <li><a href="checkout.html">الدفع</a></li>
-                                        <li><a href="contact.html">اتصل بنا</a></li>
+                                        <li><a href="/checkout">الدفع</a></li>
+                                        <li><a href="/contact">اتصل بنا</a></li>
                                     </ul>
                                 </li>
                                 @guest
@@ -99,10 +100,11 @@
                                             <li><a href="#">الملف الشخصي</a></li>
                                             <li>
                                                 <a href="{{ route('logout') }}"
-                                                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                                     تسجيل الخروج
                                                 </a>
-                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                    class="d-none">
                                                     @csrf
                                                 </form>
                                             </li>
@@ -113,7 +115,7 @@
 
                                 <li>
                                     <div class="header-icons">
-                                        <a class="shopping-cart" href="{{route('cart.index')}}"><i
+                                        <a class="shopping-cart" href="{{ route('cart.index') }}"><i
                                                 class="fas fa-shopping-cart"></i></a>
                                         <a class="mobile-hide search-bar-icon" href="#"><i
                                                 class="fas fa-search"></i></a>
@@ -162,8 +164,8 @@
                                 <p class="subtitle">تسوّق الآن واحصل على خصم 50%</p>
                                 <h1>خصم خاص على الأدوات المدرسية</h1>
                                 <div class="hero-btns">
-                                    <a href="shop.html" class="boxed-btn">تسوق الان</a>
-                                    <a href="contact.html" class="bordered-btn">تواصل معنا</a>
+                                    <a href="/products" class="boxed-btn">تسوق الان</a>
+                                    <a href="/contact" class="bordered-btn">تواصل معنا</a>
                                 </div>
                             </div>
                         </div>
@@ -181,8 +183,8 @@
                                 <p class="subtitle">أناقة لكل يوم</p>
                                 <h1>أكبر تشكيلة من أوتلت الأزياء</h1>
                                 <div class="hero-btns">
-                                    <a href="shop.html" class="boxed-btn">تسوق الآن</a>
-                                    <a href="contact.html" class="bordered-btn">تواصل معنا</a>
+                                    <a href="/products" class="boxed-btn">تسوق الان</a>
+                                    <a href="/contact" class="bordered-btn">تواصل معنا</a>
                                 </div>
                             </div>
                         </div>
@@ -200,8 +202,8 @@
                                 <p class="subtitle">توصيل مجاني لأول طلب</p>
                                 <h1>براندات مصرية نفتخر بها</h1>
                                 <div class="hero-btns">
-                                    <a href="shop.html" class="boxed-btn">تسوق الآن</a>
-                                    <a href="contact.html" class="bordered-btn">تواصل معنا</a>
+                                    <a href="/products" class="boxed-btn">تسوق الان</a>
+                                    <a href="/contact" class="bordered-btn">تواصل معنا</a>
                                 </div>
                             </div>
                         </div>
@@ -219,8 +221,8 @@
                                 <p class="subtitle">جهّز نفسك لأقوى العروض</p>
                                 <h1>عروض رجوع المدارس</h1>
                                 <div class="hero-btns">
-                                    <a href="shop.html" class="boxed-btn">تسوق الآن</a>
-                                    <a href="contact.html" class="bordered-btn">تواصل معنا</a>
+                                    <a href="/products" class="boxed-btn">تسوق الآن</a>
+                                    <a href="/contact" class="bordered-btn">تواصل معنا</a>
                                 </div>
                             </div>
                         </div>
@@ -238,8 +240,8 @@
                                 <p class="subtitle">خصم حتى 35% + 10% إضافي مع الكوبون</p>
                                 <h1>أسبوع الجمال</h1>
                                 <div class="hero-btns">
-                                    <a href="shop.html" class="boxed-btn">تسوق الآن</a>
-                                    <a href="contact.html" class="bordered-btn">تواصل معنا</a>
+                                    <a href="/products" class="boxed-btn">تسوق الآن</a>
+                                    <a href="/contact" class="bordered-btn">تواصل معنا</a>
                                 </div>
                             </div>
                         </div>
@@ -257,8 +259,8 @@
                                 <p class="subtitle">أسعار تبدأ من 199 جنيه</p>
                                 <h1>برّد في عز الصيف</h1>
                                 <div class="hero-btns">
-                                    <a href="shop.html" class="boxed-btn">تسوق الآن</a>
-                                    <a href="contact.html" class="bordered-btn">تواصل معنا</a>
+                                    <a href="/products" class="boxed-btn">تسوق الآن</a>
+                                    <a href="/contact" class="bordered-btn">تواصل معنا</a>
                                 </div>
                             </div>
                         </div>
