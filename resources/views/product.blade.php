@@ -54,7 +54,7 @@
 
             <div class="row product-lists">
                 @forelse ($products as $product)
-                    <div class="col-lg-4 col-md-6 text-center cat-{{ $product->category_id ?? 'uncategorized' }} @if($product->subcategory_id) cat-{{ $product->subcategory_id }} @endif">
+                    <div class="col-lg-4 col-md-6 text-center cat-{{ $product->category_id ?? 'uncategorized' }}">
                         <div class="single-product-item">
                             <div class="product-image">
                                 <a href="{{ route('products.show', $product) }}">

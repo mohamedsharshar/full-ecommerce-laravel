@@ -137,17 +137,7 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="form-group mb-3">
-                                        <label for="subcategory_id">القسم الفرعي</label>
-                                        <select name="subcategory_id" class="form-control">
-                                            <option value="">اختر القسم الفرعي</option>
-                                            @foreach($categories as $category)
-                                                @if(!is_null($category->parent_id))
-                                                    <option value="{{ $category->id }}" {{ (isset($product->subcategory_id) && $product->subcategory_id == $category->id) ? 'selected' : '' }}>{{ $category->name }}</option>
-                                                @endif
-                                            @endforeach
-                                        </select>
-                                    </div>
+
                                 <div class="form-group mb-3">
                                     <label for="description">الوصف</label>
                                     <textarea name="description" class="form-control">{{ old('description', $product->description) }}</textarea>

@@ -55,14 +55,8 @@
                                         {{ $category->name }}</option>
                                 @endforeach
                             </select>
-                        </div>
-
-                        <div class="col-md-6"
-                            style="display:flex;align-items:center;gap:8px;justify-content:space-between;flex-wrap:wrap;">
-                            <label for="subcategory_id" class="form-label fw-semibold text-end"
-                                style="flex:0 0 34%;text-align:right;margin-bottom:0;">التصنيف الفرعي</label>
                             <select name="subcategory_id" id="subcategory_id" class="form-select form-select-lg rounded-3"
-                                style="flex:1 1 64%;min-width:160px;padding:.625rem .75rem;">
+                                >
                                 <option value="" disabled selected>اختر التصنيف الفرعي (إن وجد)</option>
                                 @foreach ($subCategories as $subcategory)
                                     <option value="{{ $subcategory->id }}"
@@ -71,7 +65,6 @@
                                 @endforeach
                             </select>
                         </div>
-
 
                         <div class="col-md-6">
                             <label for="quantity" class="form-label fw-semibold text-end">الكمية</label>
