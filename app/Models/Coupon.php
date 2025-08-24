@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Coupon extends Model
 {
+    use SoftDeletes;
     protected $table = 'coupons';
     protected $guarded = [];
     protected $casts = ['expires_at' => 'datetime'];

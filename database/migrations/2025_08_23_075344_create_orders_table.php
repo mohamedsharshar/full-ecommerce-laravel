@@ -20,6 +20,7 @@ return new class extends Migration
             $table->decimal('total', 10, 2);
             $table->string('status')->default('pending')->comment('pending, paid, shipped, delivered');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

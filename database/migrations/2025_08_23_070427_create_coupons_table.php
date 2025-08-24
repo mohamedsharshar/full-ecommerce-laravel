@@ -17,8 +17,9 @@ return new class extends Migration
             $table->enum('type', ['fixed', 'percent']);
             $table->decimal('value', 8, 2);
             $table->decimal('min_order_amount', 8, 2)->default(0);
-             $table->date('expires_at')->nullable();
+            $table->date('expires_at')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

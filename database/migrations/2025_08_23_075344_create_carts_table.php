@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('coupon_id')->nullable()->constrained('coupons')->nullOnDelete();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('cart_items', function (Blueprint $table) {
@@ -26,6 +27,7 @@ return new class extends Migration
             $table->decimal('unit_price', 8, 2);
             $table->decimal('subtotal', 10, 2);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

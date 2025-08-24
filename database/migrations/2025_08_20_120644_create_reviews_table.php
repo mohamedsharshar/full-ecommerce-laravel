@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedTinyInteger('rating')->nullable();
             $table->text('comment')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
