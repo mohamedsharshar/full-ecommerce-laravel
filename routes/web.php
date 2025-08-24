@@ -41,6 +41,8 @@ Auth::routes(['register' => false]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
 
+
+
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
@@ -80,3 +82,11 @@ Route::put('/shipping/{shipping}', [ShippingController::class, 'update'])->name(
 Route::get('/about', function () {
     return view('about');
 });
+
+Route::get('change-language/{lang}', function ($lang) {
+    if (in_array($lang, ['ar', 'en'])) {
+        session(['locale' => $lang]);
+        app()->setLocale($lang);
+    }
+    return redirect()->back();
+})->name('lang.change');

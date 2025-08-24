@@ -66,31 +66,55 @@
                         <!-- menu start -->
                         <nav class="main-menu" dir="rtl">
                             <ul>
-                                <li class="current-list-item"><a href="/">الرئيسية</a>
+                                <li class="current-list-item"><a href="/">{{ __('messages.home') }}</a>
 
                                 </li>
-                                <li><a href="/products">المنتجات</a></li>
-                                <li><a href="/categories">الأقسام</a></li>
+                                <li><a href="/products">{{ __('messages.products') }}</a></li>
+                                <li><a href="/categories">{{ __('messages.categories') }}</a></li>
                                 {{-- <li><a href="/products/create">اضافة منتج</a></li> --}}
-                                <li><a href="/reviews">اراء العملاء</a></li>
+                                <li><a href="/reviews">{{ __('messages.reviews') }}</a></li>
                                 {{-- <li><a href="{{ route('coupons.index') }}">الكوبونات</a></li> --}}
-                                <li><a href="/about">من نحن</a></li>
-                                <li><a href="#">الصفحات</a>
+                                <li><a href="/about">{{ __('messages.about') }}</a></li>
+                                <li><a href="#">{{ __('messages.pages') }}</a>
                                     <ul class="sub-menu">
-                                        <li><a href="/products">المنتجات</a></li>
-                                        <li><a href="/categories">الفئات</a></li>
-                                        <li><a href="/cart">عربة التسوق</a></li>
-                                        <li><a href="/checkout">الدفع</a></li>
-                                        <li><a href="/contact">اتصل بنا</a></li>
+                                        <li><a href="/products">{{ __('messages.products') }}</a></li>
+                                        <li><a href="/categories">{{ __('messages.categories') }}</a></li>
+                                        <li><a href="/cart">{{ __('messages.cart') }}</a></li>
+                                        <li><a href="/checkout">{{ __('messages.checkout') }}</a></li>
+                                        <li><a href="/contact">{{ __('messages.contact') }}</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="{{ route('products.trashed') }}">المنتجات المحذوفة</a></li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fas fa-globe"></i>
+                                        {{ app()->getLocale() === 'ar' ? 'العربية' : 'English' }}
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li>
+                                            <a href="{{ route('lang.change', 'ar') }}">
+                                                <img src="{{ asset('assets/img/flags/sa.png') }}" width="20"
+                                                    style="margin-left: 5px">
+                                                العربية
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('lang.change', 'en') }}">
+                                                <img src="{{ asset('assets/img/flags/us.png') }}" width="20"
+                                                    style="margin-left: 5px">
+                                                English
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+
+                                {{-- <li><a href="{{ route('products.trashed') }}">المنتجات المحذوفة</a></li> --}}
                                 @guest
                                     @if (Route::has('login'))
-                                        <li><a href="{{ route('login') }}">تسجيل الدخول</a></li>
+                                        <li><a href="{{ route('login') }}">{{ __('messages.login') }}</a></li>
                                     @endif
                                     @if (Route::has('register'))
-                                        <li><a href="{{ route('register') }}">تسجيل</a></li>
+                                        <li><a href="{{ route('register') }}">{{ __('messages.register') }}</a></li>
                                     @endif
                                 @else
                                     <li>
@@ -98,14 +122,16 @@
                                             {{ Auth::user()->name }}
                                         </a>
                                         <ul class="sub-menu">
-                                            <li><a href="#">الملف الشخصي</a></li>
-                                            @if(auth()->user()->hasRole('admin'))
-                                            <li><a href="{{ route('products.trashed') }}">المنتجات المحذوفة</a></li>
+                                            <li><a href="#">{{ __('messages.profile') }}</a></li>
+                                            @if (auth()->user()->hasRole('admin'))
+                                                <li><a
+                                                        href="{{ route('products.trashed') }}">{{ __('messages.trashed_products') }}</a>
+                                                </li>
                                             @endif
                                             <li>
                                                 <a href="{{ route('logout') }}"
                                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                                    تسجيل الخروج
+                                                    {{ __('messages.logout') }}
                                                 </a>
                                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                                     class="d-none">
@@ -115,7 +141,7 @@
                                         </ul>
                                     </li>
                                 @endguest
-                                <li><a href="contact.html">اتصل بنا</a></li>
+                                {{-- <li><a href="contact.html">{{__('messages.contact')}}</a></li> --}}
 
                                 <li>
                                     <div class="header-icons">
