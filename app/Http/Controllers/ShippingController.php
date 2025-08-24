@@ -23,59 +23,40 @@ class ShippingController extends Controller
             'zip' => 'required|string|max:20',
         ]);
 
-        // Get cart items
-        $cartItems = Cart::with('product')->where('user_id', Auth::id())->get();
+        // Get cart
+        $cart = Cart::with('items.product')->where('user_id', Auth::id())->firstOrFail();
 
-        if ($cartItems->isEmpty()) {
+        if ($cart->items->isEmpty()) {
             return redirect()->route('cart.index')->with('error', 'عربة التسوق فارغة!');
         }
 
         // Calculate shipping cost based on city
-        $shipping_cost = 0;
-        switch (strtolower($request->city)) {
-            case 'united arab emirates':
-                $shipping_cost = 10;
-                break;
-            case 'saudi arabia':
-                $shipping_cost = 15;
-                break;
-            default:
-                $shipping_cost = 5;
-        }
+        $shipping_cost = match (strtolower($request->city)) {
+            'united arab emirates' => 10,
+            'saudi arabia' => 15,
+            default => 5,
+        };
 
-        // Calculate totals
-        $subtotal = $cartItems->sum(function($item) {
-            return $item->product->price * $item->quantity;
-        });
-
-        $discount = 0;
-        if (session()->has('coupon')) {
-            $coupon = session('coupon');
-            if ($coupon['code']) {
-                $discount = $coupon['discount'];
-            }
-        }
-
-        $totalAfterDiscount = $subtotal - $discount;
-        $finalTotal = $totalAfterDiscount + $shipping_cost;
+        // Calculate final total
+        $finalTotal = $cart->discounted_total + $shipping_cost;
 
         // Create order first
         $order = Order::create([
             'user_id' => Auth::id(),
-            'subtotal' => $subtotal,
-            'discount' => $discount,
+            'subtotal' => $cart->total,
+            'discount' => $cart->total - $cart->discounted_total,
             'total' => $finalTotal,
             'status' => 'pending',
-            'coupon_id' => session()->has('coupon') && isset(session('coupon')['id']) ? session('coupon')['id'] : null,
+            'coupon_id' => $cart->coupon_id
         ]);
 
         // Create order items
-        foreach ($cartItems as $item) {
+        foreach ($cart->items as $item) {
             OrderItem::create([
                 'order_id' => $order->id,
                 'product_id' => $item->product_id,
                 'quantity' => $item->quantity,
-                'price' => $item->product->price
+                'price' => $item->unit_price
             ]);
         }
 
@@ -92,12 +73,11 @@ class ShippingController extends Controller
         ]);
 
         // Clear cart after successful order
-        Cart::where('user_id', Auth::id())->delete();
+        $cart->items()->delete();
+        $cart->delete();
 
         // Redirect to success page or order confirmation
         return redirect()->route('orders.show', $order->id)->with('success', 'تم إنشاء الطلب بنجاح!');
-
-        Cart::where('user_id', Auth::id())->delete();
 
         session()->forget('coupon');
 

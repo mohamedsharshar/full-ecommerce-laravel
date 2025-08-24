@@ -38,10 +38,12 @@ Auth::routes(['register' => false]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
 
-Route::get('/cart',[CartController::class,'index'])->name('cart.index')->middleware('auth');
-Route::post('/cart', [CartController::class, 'store'])->name('cart.store')->middleware('auth');
-Route::put('/cart/{cart}', [CartController::class, 'update'])->name('cart.update')->middleware('auth');
-Route::delete('/cart/{cart}', [CartController::class, 'destroy'])->name('cart.destroy')->middleware('auth');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
+    Route::put('/cart/items/{cartItem}', [CartController::class, 'update'])->name('cart.update');
+    Route::delete('/cart/items/{cartItem}', [CartController::class, 'destroy'])->name('cart.destroy');
+});
 
 Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout.show')->middleware('auth');
 Route::post('/checkout', [CartController::class, 'processCheckout'])->name('checkout.process')->middleware('auth');

@@ -36,42 +36,28 @@ class CouponController extends Controller
         ]);
 
         $coupon = Coupon::where('code', $request->code)->first();
+        $cart = Cart::with('items')->where('user_id', Auth::id())->first();
 
-        $cartItems = Cart::with('product')->where('user_id', Auth::id())->get();
-        $total = 0;
-
-        foreach ($cartItems as $item) {
-            $total += $item->product->price * $item->quantity;
+        if (!$cart || $cart->items->isEmpty()) {
+            return back()->with('error', 'Your cart is empty!');
         }
 
-        // التحقق من صلاحية الكوبون
-        if (!$coupon->isValid($total)) {
+        if (!$coupon->isValid($cart->total)) {
             return back()->with('error', 'Coupon is invalid, expired, or order amount too low!');
         }
 
-        // حساب الخصم
-        if ($coupon->type === 'fixed') {
-            $discount = min($coupon->value, $total); // مايزيدش الخصم عن إجمالي الطلب
-        } else {
-            $discount = ($total * ($coupon->value / 100));
-        }
-
-        // تخزين بيانات الكوبون في السيشن
-        session()->put('coupon', [
-            'id' => $coupon->id,
-            'code' => $coupon->code,
-            'type' => $coupon->type,
-            'value' => $coupon->value,
-            'discount' => $discount,
-        ]);
+        $cart->update(['coupon_id' => $coupon->id]);
 
         return back()->with('success', 'Coupon applied successfully!');
     }
 
-
     public function remove()
     {
-        session()->forget('coupon');
+        $cart = Cart::where('user_id', Auth::id())->first();
+        if ($cart) {
+            $cart->update(['coupon_id' => null]);
+        }
+
         return back()->with('success', 'Coupon removed from cart!');
     }
     public function edit(Coupon $coupon)

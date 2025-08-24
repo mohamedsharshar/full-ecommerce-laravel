@@ -3,49 +3,39 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\CartItem;
 use App\Models\Shipping;
+use App\Models\Coupon;
+use App\Models\Product;
+use App\Models\Order;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
 {
     public function index()
     {
-        $cartItems = Cart::with('product')->where('user_id', Auth::id())->get();
+        $cart = Cart::with(['items.product', 'coupon'])
+            ->firstOrCreate(['user_id' => Auth::id()]);
+
         $shippingInfo = Shipping::where('user_id', Auth::id())->first();
 
-        $shipping = 0;
-        if ($shippingInfo) {
-            switch (strtolower($shippingInfo->city)) {
-                case 'united arab emirates':
-                    $shipping = 10;
-                    break;
-                case 'saudi arabia':
-                    $shipping = 15;
-                    break;
-                default:
-                    $shipping = 5;
-            }
-        } else {
-            $shipping = 5;
-        }
+        $shipping = match (strtolower($shippingInfo->city ?? '')) {
+            'united arab emirates' => 10,
+            'saudi arabia' => 15,
+            default => 5,
+        };
 
-        $total = 0;
-        foreach ($cartItems as $item) {
-            $total += $item->product->price * $item->quantity;
-        }
-
-        $discount = 0;
-        if (session()->has('coupon')) {
-            $coupon = session('coupon');
-            if ($coupon['code']) {
-                $discount = $coupon['discount'];
-            }
-        }
-
-        $totalAfterDiscount = $total - $discount;
-
-        return view('cart', compact('cartItems', 'shipping', 'total', 'discount', 'totalAfterDiscount'));
+        return view('cart', [
+            'cart' => $cart,
+            'cartItems' => $cart->items,
+            'shipping' => $shipping,
+            'total' => $cart->total ?? 0,
+            'discount' => ($cart->total ?? 0) - ($cart->discounted_total ?? 0),
+            'totalAfterDiscount' => $cart->discounted_total ?? 0
+        ]);
     }
 
     public function store(Request $request)
@@ -55,80 +45,74 @@ class CartController extends Controller
             'quantity' => 'required|integer|min:1',
         ]);
 
-        $cartItem = Cart::where('user_id', Auth::id())
-            ->where('product_id', $request->product_id)
-            ->first();
+        $cart = Cart::firstOrCreate(['user_id' => Auth::id()]);
+        $product = Product::findOrFail($request->product_id);
+
+        $cartItem = $cart->items()->where('product_id', $request->product_id)->first();
 
         if ($cartItem) {
-            $cartItem->increment('quantity', $request->quantity);
+            $cartItem->update([
+                'quantity' => $cartItem->quantity + $request->quantity
+            ]);
         } else {
-            Cart::create([
-                'user_id' => Auth::id(),
+            $cart->items()->create([
                 'product_id' => $request->product_id,
                 'quantity' => $request->quantity,
+                'unit_price' => $product->price,
+                'subtotal' => $product->price * $request->quantity
             ]);
         }
 
         return redirect()->route('cart.index')->with('success', 'Product added to cart successfully!');
     }
 
-    public function update(Request $request, Cart $cart)
+    public function update(Request $request, CartItem $cartItem)
     {
         $request->validate([
             'quantity' => 'required|integer|min:1',
         ]);
 
-        $cart->update([
+        $cartItem->update([
             'quantity' => $request->quantity,
+            'subtotal' => $cartItem->unit_price * $request->quantity
         ]);
 
         return redirect()->route('cart.index')->with('success', 'Cart updated successfully!');
     }
 
-    public function destroy(Cart $cart)
+    public function destroy(CartItem $cartItem)
     {
-        $cart->delete();
+        $cartItem->delete();
 
         return redirect()->route('cart.index')->with('success', 'Product removed from cart successfully!');
     }
 
     public function checkout()
     {
-        $cartItems = Cart::with('product')->where('user_id', Auth::id())->get();
+        $cart = Cart::with(['items.product', 'coupon'])
+            ->firstOrCreate(['user_id' => Auth::id()]);
+
+        if ($cart->items->isEmpty()) {
+            return redirect()->route('cart.index')->with('error', 'Your cart is empty!');
+        }
+
         $shippingInfo = Shipping::where('user_id', Auth::id())->first();
 
-        $shipping = 0;
-        if ($shippingInfo) {
-            switch (strtolower($shippingInfo->city)) {
-                case 'united arab emirates':
-                    $shipping = 10;
-                    break;
-                case 'saudi arabia':
-                    $shipping = 15;
-                    break;
-                default:
-                    $shipping = 5;
-            }
-        } else {
-            $shipping = 5;
-        }
+        $shipping = match (strtolower($shippingInfo->city ?? '')) {
+            'united arab emirates' => 10,
+            'saudi arabia' => 15,
+            default => 5,
+        };
 
-        $total = 0;
-        foreach ($cartItems as $item) {
-            $total += $item->product->price * $item->quantity;
-        }
-
-        $discount = 0;
-        if (session()->has('coupon')) {
-            $coupon = session('coupon');
-            if ($coupon['code']) {
-                $discount = $coupon['discount'];
-            }
-        }
-
-        $totalAfterDiscount = $total - $discount;
-
-        return view('checkout', compact('cartItems', 'shipping', 'total', 'discount', 'totalAfterDiscount', 'shippingInfo'));
+        return view('checkout', [
+            'cart' => $cart,
+            'cartItems' => $cart->items,
+            'shipping' => $shipping,
+            'total' => $cart->total ?? 0,
+            'discount' => ($cart->total ?? 0) - ($cart->discounted_total ?? 0),
+            'totalAfterDiscount' => $cart->discounted_total ?? 0,
+            'shippingInfo' => $shippingInfo
+        ]);
     }
 
     public function processCheckout(Request $request)
@@ -141,13 +125,54 @@ class CartController extends Controller
             'payment_method' => 'required|string'
         ]);
 
-        $cartItems = Cart::with('product')->where('user_id', Auth::id())->get();
+        $cart = Cart::with('items.product')
+            ->where('user_id', Auth::id())
+            ->firstOrFail();
 
-        if ($cartItems->isEmpty()) {
+        if ($cart->items->isEmpty()) {
             return redirect()->route('cart.index')->with('error', 'Your cart is empty!');
         }
 
+        DB::beginTransaction();
+        try {
+            $order = Order::create([
+                'user_id' => Auth::id(),
+                'subtotal' => $cart->total,
+                'discount' => $cart->total - $cart->discounted_total,
+                'total' => $cart->discounted_total,
+                'status' => 'pending',
+                'coupon_id' => $cart->coupon_id
+            ]);
 
-        return redirect()->route('orders.show')->with('success', 'Order placed successfully!');
+            foreach ($cart->items as $item) {
+                OrderItem::create([
+                    'order_id' => $order->id,
+                    'product_id' => $item->product_id,
+                    'quantity' => $item->quantity,
+                    'price' => $item->unit_price
+                ]);
+            }
+
+            Shipping::create([
+                'order_id' => $order->id,
+                'user_id' => Auth::id(),
+                'address' => $request->shipping_address,
+                'city' => $request->shipping_city,
+                'state' => $request->shipping_state,
+                'zip' => $request->shipping_zip,
+            ]);
+
+            // Clear the cart
+            $cart->items()->delete();
+            $cart->delete();
+
+            DB::commit();
+            return redirect()->route('orders.show', $order)
+                ->with('success', 'Order placed successfully!');
+
+        } catch (\Exception $e) {
+            DB::rollback();
+            return back()->with('error', 'An error occurred while processing your order. Please try again.');
+        }
     }
 }

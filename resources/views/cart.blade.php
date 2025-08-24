@@ -31,10 +31,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @php $total = 0; @endphp
-                            @if(isset($cartItems) && $cartItems->count() > 0)
+                            @if($cartItems->count() > 0)
                                 @foreach($cartItems as $item)
-                                    @php $total += $item->product->price * $item->quantity; @endphp
                                     <tr class="table-body-row">
                                         <td class="product-remove">
                                             <form action="{{ route('cart.destroy', $item) }}" method="POST">
@@ -48,7 +46,7 @@
                                         <td class="product-name">
                                             <a href="{{ route('products.show', $item->product) }}">{{ $item->product->name }}</a>
                                         </td>
-                                        <td class="product-price">${{ $item->product->price }}</td>
+                                        <td class="product-price">${{ number_format($item->unit_price, 2) }}</td>
                                         <td class="product-quantity">
                                             <form action="{{ route('cart.update', $item) }}" method="POST">
                                                 @csrf
@@ -57,7 +55,7 @@
                                                 <button type="submit" class="btn btn-primary btn-sm update-btn">تحديث</button>
                                             </form>
                                         </td>
-                                        <td class="product-total">${{ $item->product->price * $item->quantity }}</td>
+                                        <td class="product-total">${{ number_format($item->subtotal, 2) }}</td>
                                     </tr>
                                 @endforeach
                             @else
@@ -82,25 +80,25 @@
                         <tbody>
                             <tr class="total-data">
                                 <td><strong>Subtotal: </strong></td>
-                                <td>${{ $total }}</td>
+                                <td>${{ number_format($cart->total, 2) }}</td>
                             </tr>
-                            @if(session()->has('coupon'))
+                            @if($cart->coupon)
                                 <tr class="total-data">
                                     <td><strong>Discount: </strong></td>
-                                    <td>${{ session('coupon')['discount'] }}</td>
+                                    <td>${{ number_format($discount, 2) }}</td>
                                 </tr>
                             @endif
                             <tr class="total-data">
                                 <td><strong>Shipping: </strong></td>
-                                <td>${{ $shipping }}</td>
+                                <td>${{ number_format($shipping, 2) }}</td>
                             </tr>
                             <tr class="total-data">
                                 <td><strong>Grand Total: </strong></td>
-                                <td>${{ $totalAfterDiscount + $shipping }}</td>
+                                <td>${{ number_format($totalAfterDiscount + $shipping, 2) }}</td>
                             </tr>
                         </tbody>
                     </table>
-                    @if(session()->has('coupon'))
+                    @if($cart->coupon)
                         <div class="cart-buttons">
                             <a href="{{ route('coupon.remove') }}" class="boxed-btn">Remove Coupon</a>
                         </div>
