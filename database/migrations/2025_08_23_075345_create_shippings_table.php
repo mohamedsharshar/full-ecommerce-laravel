@@ -32,5 +32,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('shippings');
+        Schema::table('shippings', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

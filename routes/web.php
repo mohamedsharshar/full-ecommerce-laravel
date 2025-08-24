@@ -20,10 +20,13 @@ Route::resource('categories', CategoryController::class);
     Route::get('/products', [ProductsController::class, 'index'])->name('products.index')->middleware('auth');
     Route::get('/products/create', [ProductsController::class, 'create'])->name('products.create')->middleware(middleware: ['auth', 'role:admin']);
     Route::post('/products/store', [ProductsController::class, 'store'])->name('products.store')->middleware(middleware: ['auth', 'role:admin']);
+    Route::get('/products/trashed', [ProductsController::class, 'trashed'])->name('products.trashed')->middleware(middleware: ['auth', 'role:admin']);
     Route::get('/products/{product}', [ProductsController::class, 'show'])->name('products.show')->middleware(middleware: ['auth', 'role:admin']);
     Route::delete('/products/{product}', [ProductsController::class, 'destroy'])->name('products.destroy')->middleware(middleware: ['auth', 'role:admin']);
     Route::get('/products/{product}/edit', [ProductsController::class, 'edit'])->name('products.edit')->middleware(middleware: ['auth', 'role:admin']);
     Route::put('/products/{product}', [ProductsController::class, 'update'])->name('products.update')->middleware(middleware: ['auth', 'role:admin']);
+    Route::post('/products/{id}/restore', [ProductsController::class, 'restore'])->name('products.restore')->middleware(middleware: ['auth', 'role:admin']);
+    Route::delete('/products/{id}/force-delete', [ProductsController::class, 'forceDelete'])->name('products.forceDelete')->middleware(middleware: ['auth', 'role:admin']);
 // })->middleware(['auth', 'role:admin']);
 
 // Route::middleware(['permission:manage reviews'])->group(function () {

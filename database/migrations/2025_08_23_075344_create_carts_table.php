@@ -38,5 +38,8 @@ return new class extends Migration
     {
         Schema::dropIfExists('cart_items');
         Schema::dropIfExists('carts');
+        Schema::table('carts', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

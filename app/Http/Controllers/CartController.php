@@ -79,7 +79,24 @@ class CartController extends Controller
 
         return redirect()->route('cart.index')->with('success', 'Cart updated successfully!');
     }
+    public function trashed(){
+        $cart = Cart::with(['items.product', 'coupon'])
+            ->firstOrCreate(['user_id' => Auth::id()]);
 
+        return view('cart.trashed', [
+            'cart' => $cart,
+            'cartItems' => $cart->items,
+            'total' => $cart->total ?? 0,
+            'discount' => ($cart->total ?? 0) - ($cart->discounted_total ?? 0),
+            'totalAfterDiscount' => $cart->discounted_total ?? 0
+        ]);
+    }
+    public function restore(CartItem $cartItem)
+    {
+        $cartItem->restore();
+
+        return redirect()->route('cart.index')->with('success', 'Product restored to cart successfully!');
+    }
     public function destroy(CartItem $cartItem)
     {
         $cartItem->delete();

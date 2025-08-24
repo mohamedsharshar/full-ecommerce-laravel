@@ -84,6 +84,7 @@
                                         <li><a href="/contact">اتصل بنا</a></li>
                                     </ul>
                                 </li>
+                                <li><a href="{{ route('products.trashed') }}">المنتجات المحذوفة</a></li>
                                 @guest
                                     @if (Route::has('login'))
                                         <li><a href="{{ route('login') }}">تسجيل الدخول</a></li>
@@ -98,6 +99,9 @@
                                         </a>
                                         <ul class="sub-menu">
                                             <li><a href="#">الملف الشخصي</a></li>
+                                            @if(auth()->user()->hasRole('admin'))
+                                            <li><a href="{{ route('products.trashed') }}">المنتجات المحذوفة</a></li>
+                                            @endif
                                             <li>
                                                 <a href="{{ route('logout') }}"
                                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -349,7 +353,7 @@
     <!-- jquery -->
     <script src="{{ asset('assets/js/jquery-1.11.3.min.js') }}"></script>
     <!-- bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min..js"></script>
     <script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
     <!-- count down -->
     <script src="{{ asset('assets/js/jquery.countdown.js') }}"></script>
