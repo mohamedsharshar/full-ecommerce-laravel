@@ -45,7 +45,7 @@
                                     </li>
                                 @endforeach
                             @endforeach
-                            <li class="active" data-filter="*">الكل</li>
+                            <li class="active" data-filter="*">{{ __('messages.all') }}</li>
                         </ul>
                     </div>
                 </div>
@@ -77,13 +77,13 @@
                             @role('admin')
                             <div class="admin-buttons mt-3">
                                 <a href="{{ route('products.edit', $product) }}" class="btn btn-warning btn-sm">
-                                    <i class="fas fa-edit"></i> تعديل
+                                    <i class="fas fa-edit"></i> {{ __('messages.edit') }}
                                 </a>
                                 <form action="{{ route('products.destroy', $product) }}" method="POST" class="d-inline-block" onsubmit="return confirm('هل أنت متأكد من حذف هذا المنتج؟');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm">
-                                        <i class="fas fa-trash"></i> حذف
+                                        <i class="fas fa-trash"></i> {{ __('messages.delete') }}
                                     </button>
                                 </form>
                             </div>

@@ -67,7 +67,7 @@
                                     <li data-filter=".cat-{{ $subCategory->id }}">&nbsp;&nbsp;{{ $subCategory->name }}</li>
                                 @endforeach
                             @endforeach
-                            <li class="active" data-filter="*">الكل</li>
+                            <li class="active" data-filter="*">{{ __('messages.all') }}</li>
                         </ul>
                     </div>
                 </div>
@@ -88,8 +88,8 @@
                                 {{ \Illuminate\Support\Str::words($product->description, 5, '...') }}
                             </p>
 
-                            <p class="product-price"><span>السعر</span> {{ $product->price }}$ </p>
-                            <a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> أضف للسلة</a>
+                            <p class="product-price"><span>{{ __('messages.price') }}</span> {{ $product->price }}$ </p>
+                            <a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> {{ __('messages.add_to_cart') }}</a>
                         </div>
                     </div>
                 @endforeach

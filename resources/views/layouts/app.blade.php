@@ -90,20 +90,7 @@
                                         {{ app()->getLocale() === 'ar' ? 'العربية' : 'English' }}
                                     </a>
                                     <ul class="sub-menu">
-                                        <li>
-                                            <a href="{{ route('lang.change', 'ar') }}">
-                                                <img src="{{ asset('assets/img/flags/sa.png') }}" width="20"
-                                                    style="margin-left: 5px">
-                                                العربية
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ route('lang.change', 'en') }}">
-                                                <img src="{{ asset('assets/img/flags/us.png') }}" width="20"
-                                                    style="margin-left: 5px">
-                                                English
-                                            </a>
-                                        </li>
+                                        
                                     </ul>
                                 </li>
 
