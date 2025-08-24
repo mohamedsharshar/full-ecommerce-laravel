@@ -37,7 +37,14 @@ class OrdersController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $order = Order::with(['items.product', 'shipping'])->findOrFail($id);
+        return view('orders.show', compact('order'));
+    }
+
+    public function invoice(string $id)
+    {
+        $order = Order::with(['items.product', 'shipping'])->findOrFail($id);
+        return view('orders.invoice', compact('order'));
     }
 
     /**

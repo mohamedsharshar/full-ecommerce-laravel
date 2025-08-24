@@ -1,5 +1,4 @@
 translation
 softdelete
-shipping
 coupon value and discount value
-price in cart 
+price in cart

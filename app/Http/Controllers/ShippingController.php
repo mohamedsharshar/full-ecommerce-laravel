@@ -13,6 +13,7 @@ class ShippingController extends Controller
 {
     public function store(Request $request)
     {
+        // Validate request
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
@@ -22,46 +23,30 @@ class ShippingController extends Controller
             'zip' => 'required|string|max:20',
         ]);
 
-        Shipping::updateOrCreate(
-            ['user_id' => Auth::id()],
-            [
-                'name' => $request->name,
-                'email' => $request->email,
-                'address' => $request->address,
-                'city' => $request->city,
-                'state' => $request->state,
-                'zip' => $request->zip,
-            ]
-        );
-
+        // Get cart items
         $cartItems = Cart::with('product')->where('user_id', Auth::id())->get();
 
         if ($cartItems->isEmpty()) {
-            return redirect()->route('cart.index')->with('error', 'Your cart is empty!');
+            return redirect()->route('cart.index')->with('error', 'عربة التسوق فارغة!');
         }
 
-        $shippingInfo = Shipping::where('user_id', Auth::id())->first();
-
+        // Calculate shipping cost based on city
         $shipping_cost = 0;
-        if ($shippingInfo) {
-            switch (strtolower($shippingInfo->city)) {
-                case 'united arab emirates':
-                    $shipping_cost = 10;
-                    break;
-                case 'saudi arabia':
-                    $shipping_cost = 15;
-                    break;
-                default:
-                    $shipping_cost = 5;
-            }
-        } else {
-            $shipping_cost = 5;
+        switch (strtolower($request->city)) {
+            case 'united arab emirates':
+                $shipping_cost = 10;
+                break;
+            case 'saudi arabia':
+                $shipping_cost = 15;
+                break;
+            default:
+                $shipping_cost = 5;
         }
 
-        $total = 0;
-        foreach ($cartItems as $item) {
-            $total += $item->product->price * $item->quantity;
-        }
+        // Calculate totals
+        $subtotal = $cartItems->sum(function($item) {
+            return $item->product->price * $item->quantity;
+        });
 
         $discount = 0;
         if (session()->has('coupon')) {
@@ -71,27 +56,46 @@ class ShippingController extends Controller
             }
         }
 
-        $totalAfterDiscount = $total - $discount;
+        $totalAfterDiscount = $subtotal - $discount;
         $finalTotal = $totalAfterDiscount + $shipping_cost;
 
+        // Create order first
         $order = Order::create([
             'user_id' => Auth::id(),
-            'shipping_id' => $shippingInfo->id,
-            'subtotal' => $total,
+            'subtotal' => $subtotal,
             'discount' => $discount,
             'total' => $finalTotal,
             'status' => 'pending',
             'coupon_id' => session()->has('coupon') && isset(session('coupon')['id']) ? session('coupon')['id'] : null,
         ]);
 
+        // Create order items
         foreach ($cartItems as $item) {
             OrderItem::create([
                 'order_id' => $order->id,
                 'product_id' => $item->product_id,
                 'quantity' => $item->quantity,
-                'price' => $item->product->price,
+                'price' => $item->product->price
             ]);
         }
+
+        // Create shipping information
+        Shipping::create([
+            'order_id' => $order->id,
+            'user_id' => Auth::id(),
+            'name' => $request->name,
+            'email' => $request->email,
+            'address' => $request->address,
+            'city' => $request->city,
+            'state' => $request->state,
+            'zip' => $request->zip,
+        ]);
+
+        // Clear cart after successful order
+        Cart::where('user_id', Auth::id())->delete();
+
+        // Redirect to success page or order confirmation
+        return redirect()->route('orders.show', $order->id)->with('success', 'تم إنشاء الطلب بنجاح!');
 
         Cart::where('user_id', Auth::id())->delete();
 

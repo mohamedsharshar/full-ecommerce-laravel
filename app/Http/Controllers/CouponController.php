@@ -44,22 +44,30 @@ class CouponController extends Controller
             $total += $item->product->price * $item->quantity;
         }
 
+        // التحقق من صلاحية الكوبون
         if (!$coupon->isValid($total)) {
-            return back()->with('error', 'Coupon is invalid or expired!');
+            return back()->with('error', 'Coupon is invalid, expired, or order amount too low!');
         }
 
-        $discount = $coupon->type === 'fixed'
-            ? $coupon->value
-            : ($total * ($coupon->value / 100));
+        // حساب الخصم
+        if ($coupon->type === 'fixed') {
+            $discount = min($coupon->value, $total); // مايزيدش الخصم عن إجمالي الطلب
+        } else {
+            $discount = ($total * ($coupon->value / 100));
+        }
 
+        // تخزين بيانات الكوبون في السيشن
         session()->put('coupon', [
             'id' => $coupon->id,
             'code' => $coupon->code,
+            'type' => $coupon->type,
+            'value' => $coupon->value,
             'discount' => $discount,
         ]);
 
         return back()->with('success', 'Coupon applied successfully!');
     }
+
 
     public function remove()
     {

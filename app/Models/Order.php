@@ -21,7 +21,7 @@ class Order extends Model
 
     public function shipping()
     {
-        return $this->belongsTo(Shipping::class);
+        return $this->hasOne(Shipping::class);
     }
 
     public function coupon()

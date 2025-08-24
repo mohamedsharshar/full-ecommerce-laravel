@@ -71,9 +71,9 @@
                                 </li>
                                 <li><a href="/products">المنتجات</a></li>
                                 <li><a href="/categories">الأقسام</a></li>
-                                <li><a href="/products/create">اضافة منتج</a></li>
+                                {{-- <li><a href="/products/create">اضافة منتج</a></li> --}}
                                 <li><a href="/reviews">اراء العملاء</a></li>
-                                <li><a href="{{ route('coupons.index') }}">الكوبونات</a></li>
+                                {{-- <li><a href="{{ route('coupons.index') }}">الكوبونات</a></li> --}}
                                 <li><a href="/about">من نحن</a></li>
                                 <li><a href="#">الصفحات</a>
                                     <ul class="sub-menu">

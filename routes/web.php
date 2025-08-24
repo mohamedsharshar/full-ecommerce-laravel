@@ -48,6 +48,18 @@ Route::post('/checkout', [CartController::class, 'processCheckout'])->name('chec
 
 Route::get('/coupons', [CouponController::class, 'index'])->name('coupons.index')->middleware('auth');
 Route::get('/coupons/create', [CouponController::class, 'create'])->name('coupons.create')->middleware('auth');
+
+// Orders Routes
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/orders', [OrdersController::class, 'index'])->name('orders.index');
+    Route::get('/orders/create', [OrdersController::class, 'create'])->name('orders.create');
+    Route::post('/orders', [OrdersController::class, 'store'])->name('orders.store');
+    Route::get('/orders/{order}', [OrdersController::class, 'show'])->name('orders.show');
+    Route::get('/orders/{order}/invoice', [OrdersController::class, 'invoice'])->name('orders.invoice');
+    Route::get('/orders/{order}/edit', [OrdersController::class, 'edit'])->name('orders.edit');
+    Route::put('/orders/{order}', [OrdersController::class, 'update'])->name('orders.update');
+    Route::delete('/orders/{order}', [OrdersController::class, 'destroy'])->name('orders.destroy');
+});
 Route::post('/coupons', [CouponController::class, 'store'])->name('coupons.store')->middleware('auth');
 Route::get('/coupons/{coupon}/edit', [CouponController::class, 'edit'])->name('coupons.edit')->middleware('auth');
 Route::put('/coupons/{coupon}', [CouponController::class, 'update'])->name('coupons.update')->middleware('auth');
