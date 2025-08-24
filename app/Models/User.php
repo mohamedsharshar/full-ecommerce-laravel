@@ -10,12 +10,14 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Translatable\HasTranslations;
 
 class User extends Authenticatable implements HasMedia
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable ,InteractsWithMedia,HasRoles,SoftDeletes;
+    use HasFactory, Notifiable ,InteractsWithMedia,HasRoles,SoftDeletes, HasTranslations;
 
+    public $translatable = ['name'];
     /**
      * The attributes that are mass assignable.
      *

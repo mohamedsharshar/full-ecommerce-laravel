@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('order_id')->constrained('orders')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->string('name');
+            $table->json('name');
             $table->string('email');
-            $table->string('address');
-            $table->string('city');
-            $table->string('state');
+            $table->json('address');
+            $table->json('city');
+            $table->json('state');
             $table->string('zip');
             $table->timestamps();
             $table->softDeletes();

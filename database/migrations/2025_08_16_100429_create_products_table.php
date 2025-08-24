@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
+            $table->json('name')->nullable();
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
-            $table->text('description')->nullable();
+            $table->json('description')->nullable();
             $table->decimal('price', 10, 2)->nullable();
             $table->integer('quantity')->nullable();
-            $table->string('image')->nullable();
+            $table->string('image', 255)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
