@@ -36,6 +36,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
     <!-- responsive -->
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/language.css') }}">
 
 </head>
 
@@ -84,15 +85,6 @@
                                         <li><a href="/contact">{{ __('messages.contact') }}</a></li>
                                     </ul>
                                 </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fas fa-globe"></i>
-                                        {{ app()->getLocale() === 'ar' ? 'العربية' : 'English' }}
-                                    </a>
-                                    <ul class="sub-menu">
-                                        
-                                    </ul>
-                                </li>
 
 
                                 {{-- <li><a href="{{ route('products.trashed') }}">المنتجات المحذوفة</a></li> --}}
@@ -132,6 +124,11 @@
 
                                 <li>
                                     <div class="header-icons">
+                                        <div class="language-switcher">
+                                            <a href="{{ route('locale.switch', 'ar') }}" class="lang-btn">ع</a>
+                                            <a href="{{ route('locale.switch', 'en') }}" class="lang-btn">EN</a>
+                                        </div>
+
                                         <a class="shopping-cart" href="{{ route('cart.index') }}"><i
                                                 class="fas fa-shopping-cart"></i></a>
                                         <a class="mobile-hide search-bar-icon" href="#"><i
@@ -178,11 +175,11 @@
                     <div class="col-md-12 col-lg-7 offset-lg-1 offset-xl-0">
                         <div class="hero-text">
                             <div class="hero-text-tablecell">
-                                <p class="subtitle">تسوّق الآن واحصل على خصم 50%</p>
-                                <h1>خصم خاص على الأدوات المدرسية</h1>
+                                <p class="subtitle">{{__('messages.shop_now_get_discount')}}</p>
+                                <h1>{{__('messages.special_discount_on_school_supplies')}}</h1>
                                 <div class="hero-btns">
-                                    <a href="/products" class="boxed-btn">تسوق الان</a>
-                                    <a href="/contact" class="bordered-btn">تواصل معنا</a>
+                                    <a href="/products" class="boxed-btn">{{__('messages.shop_now')}}</a>
+                                    <a href="/contact" class="bordered-btn">{{__('messages.contact_us')}}</a>
                                 </div>
                             </div>
                         </div>
@@ -197,11 +194,11 @@
                     <div class="col-lg-10 offset-lg-1 text-center">
                         <div class="hero-text">
                             <div class="hero-text-tablecell">
-                                <p class="subtitle">أناقة لكل يوم</p>
-                                <h1>أكبر تشكيلة من أوتلت الأزياء</h1>
+                                <p class="subtitle">{{__('messages.everyday_elegance')}}</p>
+                                <h1>{{__('messages.largest_collection')}}</h1>
                                 <div class="hero-btns">
-                                    <a href="/products" class="boxed-btn">تسوق الان</a>
-                                    <a href="/contact" class="bordered-btn">تواصل معنا</a>
+                                    <a href="/products" class="boxed-btn">{{__('messages.shop_now')}}</a>
+                                    <a href="/contact" class="bordered-btn">{{__('messages.contact_us')}}</a>
                                 </div>
                             </div>
                         </div>
@@ -216,11 +213,11 @@
                     <div class="col-lg-10 offset-lg-1 text-right">
                         <div class="hero-text">
                             <div class="hero-text-tablecell">
-                                <p class="subtitle">توصيل مجاني لأول طلب</p>
-                                <h1>براندات مصرية نفتخر بها</h1>
+                                <p class="subtitle">{{__('messages.free_shipping_on_first_order')}}</p>
+                                <h1>{{__('messages.proudly_egyptian_brands')}}</h1>
                                 <div class="hero-btns">
-                                    <a href="/products" class="boxed-btn">تسوق الان</a>
-                                    <a href="/contact" class="bordered-btn">تواصل معنا</a>
+                                    <a href="/products" class="boxed-btn">{{__('messages.shop_now')}}</a>
+                                    <a href="/contact" class="bordered-btn">{{__('messages.contact_us')}}</a>
                                 </div>
                             </div>
                         </div>
@@ -235,11 +232,11 @@
                     <div class="col-lg-10 offset-lg-1 text-left">
                         <div class="hero-text">
                             <div class="hero-text-tablecell">
-                                <p class="subtitle">جهّز نفسك لأقوى العروض</p>
-                                <h1>عروض رجوع المدارس</h1>
+                                <p class="subtitle">{{__('messages.get_ready_for_the_best_offers')}}</p>
+                                <h1>{{__('messages.back_to_school_offers')}}</h1>
                                 <div class="hero-btns">
-                                    <a href="/products" class="boxed-btn">تسوق الآن</a>
-                                    <a href="/contact" class="bordered-btn">تواصل معنا</a>
+                                    <a href="/products" class="boxed-btn">{{__('messages.shop_now')}}</a>
+                                    <a href="/contact" class="bordered-btn">{{__('messages.contact_us')}}</a>
                                 </div>
                             </div>
                         </div>
@@ -254,11 +251,11 @@
                     <div class="col-lg-10 offset-lg-1 text-center">
                         <div class="hero-text">
                             <div class="hero-text-tablecell">
-                                <p class="subtitle">خصم حتى 35% + 10% إضافي مع الكوبون</p>
-                                <h1>أسبوع الجمال</h1>
+                                <p class="subtitle">{{__('messages.school_supplies_discount')}}</p>
+                                <h1>{{__('messages.beauty_week')}}</h1>
                                 <div class="hero-btns">
-                                    <a href="/products" class="boxed-btn">تسوق الآن</a>
-                                    <a href="/contact" class="bordered-btn">تواصل معنا</a>
+                                    <a href="/products" class="boxed-btn">{{__('messages.shop_now')}}</a>
+                                    <a href="/contact" class="bordered-btn">{{__('messages.contact_us')}}</a>
                                 </div>
                             </div>
                         </div>
@@ -273,11 +270,11 @@
                     <div class="col-lg-10 offset-lg-1 text-right">
                         <div class="hero-text">
                             <div class="hero-text-tablecell">
-                                <p class="subtitle">أسعار تبدأ من 199 جنيه</p>
-                                <h1>برّد في عز الصيف</h1>
+                                <p class="subtitle">{{__('messages.from_199_egp')}}</p>
+                                <h1>{{__('messages.cool_in_the_summer')}}</h1>
                                 <div class="hero-btns">
-                                    <a href="/products" class="boxed-btn">تسوق الآن</a>
-                                    <a href="/contact" class="bordered-btn">تواصل معنا</a>
+                                    <a href="/products" class="boxed-btn">{{__('messages.shop_now')}}</a>
+                                    <a href="/contact" class="bordered-btn">{{__('messages.contact_us')}}</a>
                                 </div>
                             </div>
                         </div>
@@ -296,15 +293,15 @@
             <div class="row">
                 <div class="col-lg-3 col-md-6">
                     <div class="footer-box about-widget">
-                        <h2 class="widget-title">نبذة عنا</h2>
-                        <p>نحن متجر متخصص في بيع الفواكه والخضروات الطازجة والعضوية.</p>
+                        <h2 class="widget-title">{{__('messages.about_us')}}</h2>
+                        <p>{{__('messages.about_us_description')}}</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="footer-box get-in-touch">
-                        <h2 class="widget-title">تواصل معنا</h2>
+                        <h2 class="widget-title">{{__('messages.get_in_touch')}}</h2>
                         <ul>
-                            <li>المنوفية, مصر , افريقيا </li>
+                            <li>{{__('messages.Menoufia')}}, {{__('messages.Egypt')}}, {{__('messages.Africa')}}</li>
                             <li>support@fruitkha.com</li>
                             <li>+20 100 383 1471</li>
                         </ul>
@@ -312,22 +309,22 @@
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="footer-box pages">
-                        <h2 class="widget-title">الصفحات</h2>
+                        <h2 class="widget-title">{{__('messages.pages')}}</h2>
                         <ul>
-                            <li><a href="/">الرئيسية</a></li>
-                            <li><a href="/about">نبذة عنا</a></li>
-                            <li><a href="/services">المتجر</a></li>
-                            <li><a href="/news">الأخبار</a></li>
-                            <li><a href="/contact">تواصل معنا</a></li>
+                            <li><a href="/">{{__('messages.home')}}</a></li>
+                            <li><a href="/about">{{__('messages.about_us')}}</a></li>
+                            <li><a href="/services">{{__('messages.products')}}</a></li>
+                            <li><a href="/news">{{__('messages.news')}}</a></li>
+                            <li><a href="/contact">{{__('messages.contact_us')}}</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="footer-box subscribe">
-                        <h2 class="widget-title">الاشتراك</h2>
-                        <p>اشترك في قائمتنا البريدية للحصول على آخر التحديثات.</p>
+                        <h2 class="widget-title">{{__('messages.subscribe')}}</h2>
+                        <p>{{__('messages.subscribe_description')}}</p>
                         <form action="index.html">
-                            <input type="email" placeholder="البريد الإلكتروني">
+                            <input type="email" placeholder="{{__('messages.email_placeholder')}}">
                             <button type="submit"><i class="fas fa-paper-plane"></i></button>
                         </form>
                     </div>
@@ -342,9 +339,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-md-12">
-                    <p>حقوق الطبع والنشر &copy; <?php echo date('Y'); ?> - <a
-                            href="https://mohamedsharshar.netlify.app/">Mohamed SharShar</a>, جميع الحقوق محفوظة.<br>
-                        تم التوزيع بواسطة - <a href="https://pure-soft.com/">PureSoft</a>
+                    <p>{{__('messages.copyright_notice')}} &copy; <?php echo date('Y'); ?> - <a
+                            href="https://mohamedsharshar.netlify.app/">Mohamed SharShar</a>, {{__('messages.copyright')}}.<br>
+                        {{__('messages.distributed_by')}} - <a href="https://pure-soft.com/">PureSoft</a>
                     </p>
                 </div>
                 <div class="col-lg-6 text-right col-md-12">

@@ -41,7 +41,7 @@
                     <div class="col-md-4">
                         <div class="single-category-item">
                             <h3>{{ $mainCategory->name }}</h3>
-                            <p><strong>الوصف:</strong> {{ $mainCategory->description }}</p>
+                            <p><strong>{{__('messages.category_description')}}:</strong> {{ $mainCategory->description }}</p>
                             @if($mainCategory->image)
                                 <div style="margin-bottom:10px;">
                                     <img src="{{ asset('uploads/' . $mainCategory->image) }}" alt="{{ $mainCategory->name }}" style="max-width:100%;max-height:150px;">
@@ -102,11 +102,11 @@
             <div class="col-lg-12 text-center">
                 <div class="pagination-wrap">
                     <ul>
-                        <li><a href="#">Prev</a></li>
+                        <li><a href="#">{{__('messages.prev')}}</a></li>
                         <li><a href="#">1</a></li>
                         <li><a class="active" href="#">2</a></li>
                         <li><a href="#">3</a></li>
-                        <li><a href="#">Next</a></li>
+                        <li><a href="#">{{__('messages.next')}}</a></li>
                     </ul>
                 </div>
             </div>

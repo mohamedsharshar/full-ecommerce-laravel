@@ -1,0 +1,63 @@
+/* RTL Styles */
+html[lang="ar"] .main-menu {
+    direction: rtl;
+}
+
+html[lang="ar"] .text-right {
+    text-align: left !important;
+}
+
+html[lang="ar"] .offset-lg-1 {
+    margin-right: 8.333333%;
+    margin-left: 0;
+}
+
+/* LTR Styles */
+html[lang="en"] .main-menu {
+    direction: ltr;
+}
+
+html[lang="en"] .text-right {
+    text-align: right !important;
+}
+
+html[lang="en"] .offset-lg-1 {
+    margin-left: 8.333333%;
+    margin-right: 0;
+}
+
+/* Language Switcher */
+.language-switcher {
+    display: inline-flex;
+    gap: 5px;
+    margin-right: 15px;
+}
+
+.lang-btn {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    color: #666;
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    border: 1px solid #ddd;
+}
+
+.lang-btn:hover {
+    background-color: #f28123;
+    color: white !important;
+    border-color: #f28123;
+    text-decoration: none;
+}
+
+.lang-btn.active {
+    background-color: #f28123;
+    color: white !important;
+    border-color: #f28123;
+}
+
+html[lang="ar"] .language-switcher {
+    margin-right: 0;
+    margin-left: 15px;
+}
