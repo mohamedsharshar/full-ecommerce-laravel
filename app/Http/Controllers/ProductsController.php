@@ -58,6 +58,7 @@ class ProductsController extends Controller
             'price'          => 'required|numeric|min:0',
             'quantity'       => 'required|integer|min:1',
             'category_id'    => 'required|exists:categories,id',
+            'subcategory_id' => 'nullable|exists:categories,id',
             'desc'           => 'nullable|string|max:255',
             'description'    => 'nullable|string',
             'image'          => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -102,6 +103,7 @@ class ProductsController extends Controller
             'price'          => 'required|numeric|min:0',
             'quantity'       => 'nullable|integer|min:1',
             'category_id'    => 'nullable|exists:categories,id',
+            'subcategory_id' => 'nullable|exists:categories,id',
             'description'    => 'nullable|string',
             'image'          => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);

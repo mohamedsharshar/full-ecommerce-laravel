@@ -1,162 +1,89 @@
 @extends('layouts.app')
 
 @section('content')
-    <!-- product section -->
-    <div class="product-section mt-150 mb-150">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 offset-lg-2 text-center">
-                    <div class="section-title">
-                        <h3><span class="orange-text">Our</span> Products</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, fuga quas itaque eveniet
-                            beatae optio.</p>
-                    </div>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-header bg-primary text-white text-center py-4 rounded-top-4">
+                    <h3 class="mb-0 fw-bold">{{ __('messages.edit_product') }}</h3>
                 </div>
-            </div>
-
-            <style>
-                .modern-products-flex {
-                    display: flex;
-                    flex-wrap: wrap;
-                    gap: 32px;
-                    justify-content: center;
-                }
-
-                .modern-product-card {
-                    background: #fff;
-                    border-radius: 18px;
-                    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-                    padding: 24px 18px 18px 18px;
-                    flex: 0 1 320px;
-                    max-width: 350px;
-                    margin-bottom: 10px;
-                    transition: box-shadow 0.2s;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                }
-
-                .modern-product-card:hover {
-                    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.16);
-                }
-
-                .modern-product-card .product-image img {
-                    max-width: 180px;
-                    max-height: 180px;
-                    border-radius: 12px;
-                    margin-bottom: 16px;
-                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
-                }
-
-                .modern-product-card h3 {
-                    font-size: 1.3rem;
-                    font-weight: bold;
-                    margin-bottom: 8px;
-                    color: #ff7f32;
-                }
-
-                .modern-product-card .desc {
-                    color: #666;
-                    font-size: 1rem;
-                    margin-bottom: 10px;
-                    min-height: 40px;
-                }
-
-                .modern-product-card .price {
-                    font-size: 1.1rem;
-                    color: #1a9c4b;
-                    font-weight: bold;
-                    margin-bottom: 6px;
-                }
-
-                .modern-product-card .qty {
-                    font-size: 0.98rem;
-                    color: #888;
-                    margin-bottom: 12px;
-                }
-
-                .modern-product-card .cart-btn {
-                    background: linear-gradient(90deg, #ff7f32 0%, #ffb347 100%);
-                    color: #fff;
-                    border: none;
-                    border-radius: 8px;
-                    padding: 8px 22px;
-                    font-size: 1rem;
-                    font-weight: 600;
-                    transition: background 0.2s;
-                    box-shadow: 0 2px 8px rgba(255, 127, 50, 0.08);
-                }
-
-                .modern-product-card .cart-btn:hover {
-                    background: linear-gradient(90deg, #ffb347 0%, #ff7f32 100%);
-                    color: #fff;
-                }
-            </style>
-            <div class="row justify-content-center">
-                <div class="col-md-8">
-                    <div class="card">
-                        @if (session('success'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        {{ session('success') }}
-                    </div>
-                @endif
-
-                @if ($errors->any())
-                    <div class="alert alert-danger mb-4 rounded-3">
-                                                        <ul class="mb-0 pe-3">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-                        <div class="card-header">تعديل المنتج</div>
-                        <div class="card-body">
-                            <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                @method('PUT')
-                                <div class="form-group mb-3">
-                                    <label for="name">اسم المنتج</label>
-                                    <input type="text" name="name" class="form-control" value="{{ old('name', $product->name) }}" >
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label for="price">السعر</label>
-                                    <input type="number" name="price" class="form-control" value="{{ old('price', $product->price) }}" >
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label for="quantity">الكمية</label>
-                                    <input type="number" name="quantity" class="form-control" value="{{ old('quantity', $product->quantity) }}" >
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label for="category_id">القسم</label>
-                                        <select name="category_id" class="form-control">
-                                            @foreach($categories as $category)
-                                                @if(is_null($category->parent_id))
-                                                    <option value="{{ $category->id }}" {{ $product->category_id == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
-                                                @endif
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-                                <div class="form-group mb-3">
-                                    <label for="description">الوصف</label>
-                                    <textarea name="description" class="form-control">{{ old('description', $product->description) }}</textarea>
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label for="image">صورة المنتج</label><br>
-                                    @if($product->image)
-                                        <img src="{{ asset('uploads/' . ltrim($product->image, '/')) }}"  alt="صورة المنتج الحالية" width="100" class="mb-2"><br>
-                                    @endif
-                                    <input type="file" name="image" class="form-control" accept="image/*">
-                                </div>
-                                <button type="submit" class="btn btn-primary">تحديث المنتج</button>
-                                <a href="{{ route('products.index') }}" class="btn btn-secondary">إلغاء</a>
-                            </form>
+                <div class="card-body p-5">
+                    @if (session('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ session('success') }}
                         </div>
-                    </div>
+                    @endif
+                    @if ($errors->any())
+                        <div class="alert alert-danger mb-4 rounded-3">
+                            <ul class="mb-0 pe-3">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="name" class="form-label fw-semibold text-end">{{ __('messages.name') }}</label>
+                                <input type="text" name="name" class="form-control form-control-lg rounded-3" value="{{ old('name', $product->name) }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="price" class="form-label fw-semibold text-end">{{ __('messages.price') }}</label>
+                                <input type="number" name="price" class="form-control form-control-lg rounded-3" value="{{ old('price', $product->price) }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="quantity" class="form-label fw-semibold text-end">{{ __('messages.quantity') }}</label>
+                                <input type="number" name="quantity" class="form-control form-control-lg rounded-3" value="{{ old('quantity', $product->quantity) }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="category_id" class="form-label fw-semibold text-end">{{ __('messages.category') }}</label>
+                                <select name="category_id" id="category_id" class="form-select form-select-lg rounded-3 border-primary shadow-sm" style="background-color:#f9fafb;">
+                                    @foreach($categories as $category)
+                                        @if(is_null($category->parent_id))
+                                            <option value="{{ $category->id }}" {{ $product->category_id == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="subcategory_id" class="form-label fw-semibold text-end">{{ __('messages.sub_category') }}</label>
+                                <select name="subcategory_id" id="subcategory_id" class="form-select form-select-lg rounded-3 border-primary shadow-sm" style="background-color:#f9fafb;">
+                                    <option value="" disabled selected>{{ __('messages.choose_subcategory') }}</option>
+                                    @foreach($categories as $subcategory)
+                                        @if(!is_null($subcategory->parent_id))
+                                            <option value="{{ $subcategory->id }}" {{ (isset($product->subcategory_id) && $product->subcategory_id == $subcategory->id) ? 'selected' : '' }}>{{ $subcategory->name }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label for="description" class="form-label fw-semibold text-end">{{ __('messages.full_description') }}</label>
+                                <textarea name="description" class="form-control rounded-3">{{ old('description', $product->description) }}</textarea>
+                            </div>
+                            <div class="col-12">
+                                <label for="image" class="form-label fw-semibold text-end">{{ __('messages.product_image') }}</label><br>
+                                @if($product->image)
+                                    <img src="{{ asset('uploads/' . ltrim($product->image, '/')) }}"  alt="{{__('messages.current_image_product')}}" width="100" class="mb-2 rounded-3"><br>
+                                @endif
+                                <input type="file" name="image" class="form-control form-control-lg rounded-3" accept="image/*">
+                            </div>
+                        </div>
+                        <div class="d-grid mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg rounded-pill fw-bold py-3">{{ __('messages.edit_product') }}</button>
+                            <a href="{{ route('products.index') }}" class="btn btn-secondary btn-lg rounded-pill fw-bold py-3 mt-2">{{ __('messages.cancel') }}</a>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    <!-- end product section -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
