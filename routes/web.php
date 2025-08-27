@@ -12,6 +12,7 @@ use App\Http\Controllers\ShippingController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return redirect('welcome');
@@ -90,3 +91,4 @@ Route::get('/about', function () {
 Route::get('/locale/{locale}', [LocalizationController::class, 'switchLocale'])->name('locale.switch');
 Route::get('/contact', [ContactController::class, 'showForm'])->name('contact.show');
 Route::post('/contact', [ContactController::class, 'submitForm'])->name('contact.submit');
+Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');

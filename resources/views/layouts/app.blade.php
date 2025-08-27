@@ -101,7 +101,7 @@
                                             {{ Auth::user()->name }}
                                         </a>
                                         <ul class="sub-menu">
-                                            <li><a href="#">{{ __('messages.profile') }}</a></li>
+                                            <li><a href="{{route('profile.show')}}">{{ __('messages.profile') }}</a></li>
                                             @if (auth()->user()->hasRole('admin'))
                                                 <li><a
                                                         href="{{ route('products.trashed') }}">{{ __('messages.trashed_products') }}</a>
