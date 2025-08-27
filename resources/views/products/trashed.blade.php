@@ -6,7 +6,7 @@
         <div class="col-lg-10">
             <div class="card shadow-lg border-0 rounded-4">
                 <div class="card-header bg-danger text-white text-center py-4 rounded-top-4">
-                    <h3 class="mb-0 fw-bold">المنتجات المحذوفة</h3>
+                    <h3 class="mb-0 fw-bold">{{ __('messages.deleted_products') }}</h3>
                 </div>
                 <div class="card-body p-5">
                     @if (session('success'))
@@ -20,12 +20,12 @@
                             <thead class="bg-light">
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">الاسم</th>
-                                    <th scope="col">الصورة</th>
-                                    <th scope="col">السعر</th>
-                                    <th scope="col">الكمية</th>
-                                    <th scope="col">تاريخ الحذف</th>
-                                    <th scope="col">العمليات</th>
+                                    <th scope="col">{{ __('messages.name') }}</th>
+                                    <th scope="col">{{ __('messages.image') }}</th>
+                                    <th scope="col">{{ __('messages.price') }}</th>
+                                    <th scope="col">{{ __('messages.quantity') }}</th>
+                                    <th scope="col">{{ __('messages.deleted_at') }}</th>
+                                    <th scope="col">{{ __('messages.actions') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -40,18 +40,18 @@
                                         <td>
                                             <form action="{{ route('products.restore', $product->id) }}" method="POST" class="d-inline">
                                                 @csrf
-                                                <button type="submit" class="btn btn-success btn-sm">استعادة</button>
+                                                <button type="submit" class="btn btn-success btn-sm">{{ __('messages.restore') }}</button>
                                             </form>
                                             <form action="{{ route('products.forceDelete', $product->id) }}" method="POST" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm">حذف نهائي</button>
+                                                <button type="submit" class="btn btn-danger btn-sm">{{ __('messages.force_delete') }}</button>
                                             </form>
                                         </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="7" class="text-center">لا توجد منتجات محذوفة حالياً.</td>
+                                        <td colspan="7" class="text-center">{{ __('messages.no_deleted_products') }}</td>
                                     </tr>
                                 @endforelse
                             </tbody>

@@ -82,7 +82,7 @@
                                         <li><a href="/categories">{{ __('messages.categories') }}</a></li>
                                         <li><a href="/cart">{{ __('messages.cart') }}</a></li>
                                         <li><a href="/checkout">{{ __('messages.checkout') }}</a></li>
-                                        <li><a href="/contact">{{ __('messages.contact') }}</a></li>
+                                        <li><a href="{{ route('contact.show', app()->getLocale()) }}">{{ __('messages.contact') }}</a></li>
                                     </ul>
                                 </li>
 
@@ -179,7 +179,7 @@
                                 <h1>{{__('messages.special_discount_on_school_supplies')}}</h1>
                                 <div class="hero-btns">
                                     <a href="/products" class="boxed-btn">{{__('messages.shop_now')}}</a>
-                                    <a href="/contact" class="bordered-btn">{{__('messages.contact_us')}}</a>
+                                    <a href="{{ route('contact.show', app()->getLocale()) }}" class="bordered-btn">{{__('messages.contact_us')}}</a>
                                 </div>
                             </div>
                         </div>
@@ -315,7 +315,7 @@
                             <li><a href="/about">{{__('messages.about_us')}}</a></li>
                             <li><a href="/services">{{__('messages.products')}}</a></li>
                             <li><a href="/news">{{__('messages.news')}}</a></li>
-                            <li><a href="/contact">{{__('messages.contact_us')}}</a></li>
+                            <li><a href="{{ route('contact.show', app()->getLocale()) }}">{{__('messages.contact_us')}}</a></li>
                         </ul>
                     </div>
                 </div>

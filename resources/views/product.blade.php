@@ -7,15 +7,18 @@
             gap: 10px;
             justify-content: center;
         }
+
         .admin-buttons .btn {
             padding: 5px 15px;
             font-size: 14px;
         }
+
         .admin-buttons .btn-warning {
             background-color: #ffc107;
             border-color: #ffc107;
             color: #000;
         }
+
         .admin-buttons .btn-danger {
             background-color: #dc3545;
             border-color: #dc3545;
@@ -53,12 +56,13 @@
 
             <div class="row product-lists">
                 @forelse ($products as $product)
-                    <div class="col-lg-4 col-md-6 text-center cat-{{ $product->category_id ?? 'uncategorized' }} @if($product->subcategory_id) cat-{{ $product->subcategory_id }} @endif">
+                    <div
+                        class="col-lg-4 col-md-6 text-center cat-{{ $product->category_id ?? 'uncategorized' }} @if ($product->subcategory_id) cat-{{ $product->subcategory_id }} @endif">
                         <div class="single-product-item">
                             <div class="product-image">
                                 <a href="{{ route('products.show', $product) }}">
-                                    <img src="{{ asset('uploads/' . $product->image) }}" style="max-height: 200px; min-height: 200px;"
-                                        alt="">
+                                    <img src="{{ asset('uploads/' . $product->image) }}"
+                                        style="max-height: 200px; min-height: 200px;" alt="">
                                 </a>
                             </div>
                             <h3>{{ $product->name }}</h3>
@@ -66,45 +70,47 @@
                                 {{ \Illuminate\Support\Str::words($product->description, 5, '...') }}
                             </p>
 
-                            <p class="product-price"><span>السعر</span> {{ $product->price }}$ </p>
+                            <p class="product-price"><span>{{ __('messages.price') }}</span> {{ $product->price }}$ </p>
                             <form action="{{ route('cart.store') }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                                 <input type="hidden" name="quantity" value="1">
-                                <button type="submit" class="cart-btn"><i class="fas fa-shopping-cart"></i> أضف للسلة</button>
+                                <button type="submit" class="cart-btn">
+                                    <i class="fas fa-shopping-cart"></i> {{ __('messages.add_to_cart') }}
+                                </button>
                             </form>
 
                             @role('admin')
-                            <div class="admin-buttons mt-3">
-                                <a href="{{ route('products.edit', $product) }}" class="btn btn-warning btn-sm">
-                                    <i class="fas fa-edit"></i> {{ __('messages.edit') }}
-                                </a>
-                                <form action="{{ route('products.destroy', $product) }}" method="POST" class="d-inline-block" onsubmit="return confirm('هل أنت متأكد من حذف هذا المنتج؟');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm">
-                                        <i class="fas fa-trash"></i> {{ __('messages.delete') }}
-                                    </button>
-                                </form>
-                            </div>
+                                <div class="admin-buttons mt-3">
+                                    <a href="{{ route('products.edit', $product) }}" class="btn btn-warning btn-sm">
+                                        <i class="fas fa-edit"></i> {{ __('messages.edit') }}
+                                    </a>
+                                    <form action="{{ route('products.destroy', $product) }}" method="POST"
+                                        class="d-inline-block" onsubmit="return confirm('{{ __('messages.confirm_delete') }});">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm">
+                                            <i class="fas fa-trash"></i> {{ __('messages.delete') }}
+                                        </button>
+                                    </form>
+                                </div>
                             @endrole
                         </div>
                     </div>
                 @empty
                     <div class="col-lg-12 text-center">
-                        <p>No products found matching your search.</p>
+                        <p>{{ __('messages.no_products_found') }}</p>
                     </div>
                 @endforelse
             </div>
 
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                {{ $products->links() }}
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    {{ $products->links() }}
+                </div>
             </div>
-        </div>
         </div>
     </div>
 
     <!-- end product section -->
-
 @endsection

@@ -23,11 +23,11 @@
                         <thead class="cart-table-head">
                             <tr class="table-head-row">
                                 <th class="product-remove"></th>
-                                <th class="product-image">Product Image</th>
-                                <th class="product-name">Name</th>
-                                <th class="product-price">Price</th>
-                                <th class="product-quantity">Quantity</th>
-                                <th class="product-total">Total</th>
+                                <th class="product-image">{{ __('messages.product_image') }}</th>
+                                <th class="product-name">{{ __('messages.name') }}</th>
+                                <th class="product-price">{{ __('messages.price') }}</th>
+                                <th class="product-quantity">{{ __('messages.quantity') }}</th>
+                                <th class="product-total">{{ __('messages.total') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -52,7 +52,7 @@
                                                 @csrf
                                                 @method('PUT')
                                                 <input type="number" name="quantity" value="{{ $item->quantity }}" min="1">
-                                                <button type="submit" class="btn btn-primary btn-sm update-btn">تحديث</button>
+                                                <button type="submit" class="btn btn-primary btn-sm update-btn">{{ __('messages.update') }}</button>
                                             </form>
                                         </td>
                                         <td class="product-total">${{ number_format($item->subtotal, 2) }}</td>
@@ -60,7 +60,7 @@
                                 @endforeach
                             @else
                                 <tr>
-                                    <td colspan="6" class="text-center">Your cart is empty.</td>
+                                    <td colspan="6" class="text-center">{{ __('messages.empty_cart') }}</td>
                                 </tr>
                             @endif
                         </tbody>
@@ -73,43 +73,43 @@
                     <table class="total-table">
                         <thead class="total-table-head">
                             <tr class="table-total-row">
-                                <th>Total</th>
-                                <th>Price</th>
+                                <th>{{ __('messages.total') }}</th>
+                                <th>{{ __('messages.price') }}</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr class="total-data">
-                                <td><strong>Subtotal: </strong></td>
+                                <td><strong>{{ __('messages.subtotal') }}: </strong></td>
                                 <td>${{ number_format($cart->total, 2) }}</td>
                             </tr>
                             @if($cart->coupon)
                                 <tr class="total-data">
-                                    <td><strong>Discount: </strong></td>
+                                    <td><strong>{{ __('messages.discount') }}: </strong></td>
                                     <td>${{ number_format($discount, 2) }}</td>
                                 </tr>
                             @endif
                             <tr class="total-data">
-                                <td><strong>Shipping: </strong></td>
+                                <td><strong>{{ __('messages.shipping_cost') }}: </strong></td>
                                 <td>${{ number_format($shipping, 2) }}</td>
                             </tr>
                             <tr class="total-data">
-                                <td><strong>Grand Total: </strong></td>
+                                <td><strong>{{ __('messages.grand_total') }}: </strong></td>
                                 <td>${{ number_format($totalAfterDiscount + $shipping, 2) }}</td>
                             </tr>
                         </tbody>
                     </table>
                     @if($cart->coupon)
                         <div class="cart-buttons">
-                            <a href="{{ route('coupon.remove') }}" class="boxed-btn">Remove Coupon</a>
+                            <a href="{{ route('coupon.remove') }}" class="boxed-btn">{{ __('messages.remove_coupon') }}</a>
                         </div>
                     @endif
                     <div class="cart-buttons">
-                        <a href="{{ route('checkout.show') }}" class="boxed-btn black">Check Out</a>
+                        <a href="{{ route('checkout.show') }}" class="boxed-btn black">{{ __('messages.checkout') }}</a>
                     </div>
                 </div>
 
                 <div class="coupon-section">
-                    <h3>Apply Coupon</h3>
+                    <h3>{{ __('messages.apply_coupon') }}</h3>
                     @if(session('success'))
                         <div class="alert alert-success">
                             {{ session('success') }}
@@ -123,8 +123,8 @@
                     <div class="coupon-form-wrap">
                         <form action="{{ route('coupon.apply') }}" method="POST">
                             @csrf
-                            <p><input type="text" name="code" placeholder="Coupon"></p>
-                            <p><input type="submit" value="Apply"></p>
+                            <p><input type="text" name="code" placeholder="{{ __('messages.coupon_placeholder') }}"></p>
+                            <p><input type="submit" value="{{ __('messages.apply') }}"></p>
                         </form>
                     </div>
                 </div>
