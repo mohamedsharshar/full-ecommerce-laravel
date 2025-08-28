@@ -1,6 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
+	<style>
+		#productImagesCarousel .carousel-control-prev-icon,
+		#productImagesCarousel .carousel-control-next-icon {
+			background-color: #F28123;
+			border-radius: 50%;
+			background-size: 60% 60%;
+			background-position: center;
+			background-repeat: no-repeat;
+			width: 2.5rem;
+			height: 2.5rem;
+		}
+		
+	</style>
    <!-- single product -->
 	<div class="single-product mt-150 mb-150" >
 		<div class="container">
@@ -20,8 +33,8 @@
 									   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
 									   <span class="sr-only">Previous</span>
 								   </a>
-								   <a class="carousel-control-next" href="#productImagesCarousel" role="button" data-slide="next">
-									   <span class="carousel-control-next-icon" aria-hidden="true"></span>
+								   <a  class="carousel-control-next" href="#productImagesCarousel" role="button" data-slide="next">
+									   <span class="carousel-control-next-icon"  aria-hidden="true"></span>
 									   <span class="sr-only">Next</span>
 								   </a>
 							   </div>
