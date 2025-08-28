@@ -1,5 +1,11 @@
+
 <?php
 return [
+    'add_product_images' => 'إضافة صور للمنتج',
+    'choose_images' => 'اختر الصور',
+    'upload' => 'رفع الصور',
+    'back_to_product' => 'العودة للمنتج',
+    'images_uploaded_success' => 'تم رفع الصور بنجاح.',
     'welcome' => 'مرحباً بك في متجرنا',
     'products' => 'المنتجات',
     'categories' => 'الأقسام',
@@ -201,4 +207,8 @@ return [
     'shop_address' => 'عنوان المتجر',
     'shop_hours' => 'مواعيد العمل',
     'find_location' => 'اعثر على موقعنا',
+    'update_image' => 'تحديث الصورة',
+    'delete_image' => 'حذف الصورة',
+    'edit_product_images' => 'تعديل صور المنتج',
+    'share' => 'مشاركة'
 ];

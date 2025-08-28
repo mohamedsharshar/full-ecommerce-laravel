@@ -1,3 +1,5 @@
+
+
 <?php
 return [
     'welcome' => 'Welcome to our store',
@@ -199,5 +201,14 @@ return [
     'shop_address' => 'Shop Address',
     'shop_hours' => 'Shop Hours',
     'find_location' => 'Find Our Location',
+    'add_product_images' => 'Add Product Images',
+    'choose_images' => 'Choose Images',
+    'upload' => 'Upload',
+    'back_to_product' => 'Back to Product',
+    'images_uploaded_success' => 'Images uploaded successfully.',
+    'update_image' => 'Update Image',
+    'delete_image' => 'Delete Image',
+    'edit_product_images' => 'Edit Product Images',
+    'share' => 'Share',
 
 ];
